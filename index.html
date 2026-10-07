@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERFAN OS Pro v5.1 - Secure</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif}
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a25;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#fff;--text2:#a8a8b8;--text3:#6b6b7b;--accent:#ff2d55;--purple:#a855f7;--green:#10b981;--grad1:linear-gradient(135deg,#ff2d55,#ff6b9d);--grad2:linear-gradient(135deg,#a855f7,#6366f1)}
+html,body{background:var(--bg);color:var(--text);min-height:100vh}
+body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,transparent 40%),radial-gradient(circle at 90% 80%,rgba(255,45,85,0.08) 0%,transparent 40%),var(--bg)}
+.app{display:flex;min-height:100vh}
+.sidebar{width:280px;background:rgba(18,18,26,0.9);backdrop-filter:blur(20px);border-left:1px solid var(--border);padding:20px 14px;position:fixed;right:0;top:0;bottom:0;overflow-y:auto;z-index:100}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.logo{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:24px;background:linear-gradient(135deg,rgba(255,45,85,0.1),rgba(168,85,247,0.1));border:1px solid var(--border2);border-radius:16px}
+.logo-icon{width:44px;height:44px;background:var(--grad1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;box-shadow:0 0 40px rgba(255,45,85,0.3)}
+.logo-text h1{font-size:15px;font-weight:800}
+.logo-text p{font-size:10px;color:var(--text3);margin-top:2px}
+.nav-section{margin-bottom:20px}
+.nav-title{font-size:10px;font-weight:700;color:var(--text3);padding:0 14px;margin-bottom:8px;letter-spacing:1px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 14px;margin-bottom:3px;border-radius:10px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:500;transition:all .2s;position:relative}
+.nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text)}
+.nav-item.active{background:linear-gradient(135deg,rgba(255,45,85,0.15),rgba(168,85,247,0.1));color:var(--text);border:1px solid rgba(255,45,85,0.3)}
+.nav-item.active::before{content:'';position:absolute;right:-14px;top:50%;transform:translateY(-50%);width:3px;height:24px;background:var(--grad1);border-radius:3px}
+.nav-item i{width:18px;font-size:15px}
+.nav-item .badge{margin-right:auto;background:var(--accent);color:white;font-size:9px;padding:2px 6px;border-radius:6px;font-weight:700}
+.user-card{margin-top:20px;padding:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:10px}
+.user-avatar{width:36px;height:36px;border-radius:50%;background:var(--grad2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.user-info{flex:1;overflow:hidden}
+.user-info h4{font-size:12px;font-weight:600}
+.user-info p{font-size:10px;color:var(--text3)}
+.main{flex:1;margin-right:280px;padding:24px 28px;min-height:100vh}
+.topbar{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding:16px 20px;background:rgba(18,18,26,0.6);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px}
+.page-title{flex:1}
+.page-title h2{font-size:20px;font-weight:800;margin-bottom:3px}
+.page-title p{font-size:12px;color:var(--text3)}
+.topbar-actions{display:flex;gap:10px;align-items:center}
+.status-pill{display:flex;align-items:center;gap:6px;padding:7px 12px;background:rgba(107,107,123,0.1);border:1px solid rgba(107,107,123,0.3);border-radius:20px;font-size:11px;color:var(--text3);font-weight:600;white-space:nowrap;transition:all .3s}
+.status-pill.connected{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:var(--green)}
+.status-pill.error{background:rgba(255,45,85,0.1);border-color:rgba(255,45,85,0.3);color:var(--accent)}
+.status-pill.warning{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:#f59e0b}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);transition:all .3s}
+.status-pill.connected .status-dot{background:var(--green);animation:pulse 2s infinite}
+.status-pill.error .status-dot{background:var(--accent)}
+.status-pill.warning .status-dot{background:#f59e0b;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.icon-btn{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:14px}
+.icon-btn:hover{background:rgba(255,255,255,0.08);color:var(--text)}
+.page{display:none;animation:fadeIn .4s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:rgba(18,18,26,0.6);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:20px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.card-title{display:flex;align-items:center;gap:10px}
+.card-title-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,45,85,0.1);color:var(--accent);font-size:15px}
+.card-title h3{font-size:15px;font-weight:700}
+.card-title p{font-size:11px;color:var(--text3);margin-top:2px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px}
+.form-input,.form-textarea,.form-select{width:100%;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;transition:all .2s;font-family:inherit}
+.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,0.05);box-shadow:0 0 0 3px rgba(255,45,85,0.1)}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6}
+.form-select{cursor:pointer}
+.form-select option{background:var(--bg2);color:var(--text);padding:8px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:inherit;white-space:nowrap}
+.btn-primary{background:var(--grad1);color:white;box-shadow:0 4px 14px rgba(255,45,85,0.3)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,45,85,0.4)}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.btn-secondary{background:rgba(255,255,255,0.05);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:rgba(255,255,255,0.08)}
+.btn-block{width:100%}
+.output-box{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:14px;min-height:80px;position:relative}
+.output-box.empty{display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;min-height:100px}
+.output-box pre{white-space:pre-wrap;word-wrap:break-word;font-size:13px;line-height:1.8;color:var(--text);font-family:'Vazirmatn',sans-serif;margin:0}
+.copy-btn{position:absolute;top:10px;left:10px;background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text2);padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:inherit}
+.copy-btn:hover{background:rgba(255,255,255,0.12);color:var(--text)}
+.slides-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.slide-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all .2s}
+.slide-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.slide-card.active{border-color:var(--accent);background:rgba(255,45,85,0.05)}
+.slide-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--grad1);color:white;font-size:12px;font-weight:800;margin-bottom:10px}
+.slide-type{font-size:11px;color:var(--accent);font-weight:700;margin-bottom:6px}
+.slide-title{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5}
+.slide-body{font-size:11px;color:var(--text2);line-height:1.7}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px}
+.kpi-card{background:rgba(18,18,26,0.6);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:all .3s}
+.kpi-card:hover{transform:translateY(-2px);border-color:var(--border2)}
+.kpi-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:var(--card-accent,var(--grad1));opacity:0.08;border-radius:50%;filter:blur(40px)}
+.kpi-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.kpi-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:white;background:var(--card-accent,var(--grad1))}
+.kpi-trend{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:4px 8px;border-radius:8px;color:var(--green);background:rgba(16,185,129,0.1)}
+.kpi-value{font-size:28px;font-weight:800;margin-bottom:4px}
+.kpi-label{font-size:12px;color:var(--text3)}
+.crm-filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.crm-filter{padding:7px 14px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.crm-filter.active{background:var(--grad1);color:white;border-color:transparent}
+.crm-list{display:flex;flex-direction:column;gap:10px}
+.crm-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;transition:all .2s}
+.crm-item:hover{border-color:var(--border2)}
+.crm-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:white;flex-shrink:0}
+.crm-info{flex:1;min-width:0}
+.crm-info h4{font-size:13px;font-weight:700;margin-bottom:3px}
+.crm-info p{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crm-meta{display:flex;gap:8px;align-items:center}
+.crm-tag{padding:4px 10px;border-radius:8px;font-size:10px;font-weight:700}
+.tag-hot{background:rgba(255,45,85,0.15);color:var(--accent)}
+.tag-warm{background:rgba(245,158,11,0.15);color:#f59e0b}
+.tag-cold{background:rgba(59,130,246,0.15);color:#3b82f6}
+.hook-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:14px}
+.hook-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;cursor:pointer}
+.hook-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.hook-category{display:inline-block;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(168,85,247,0.15);color:var(--purple);margin-bottom:8px}
+.hook-text{font-size:12px;line-height:1.7;color:var(--text);margin-bottom:10px}
+.hook-score{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text3)}
+.score-bar{flex:1;height:4px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden}
+.score-fill{height:100%;background:var(--grad1);border-radius:2px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
+.cal-day-name{text-align:center;font-size:10px;font-weight:700;color:var(--text3);padding:6px}
+.cal-day{aspect-ratio:1;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;padding:6px;cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column}
+.cal-day:hover{border-color:var(--border2);background:rgba(255,255,255,0.04)}
+.cal-day.today{border-color:var(--accent);background:rgba(255,45,85,0.05)}
+.cal-day.has-content::after{content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.cal-day-num{font-size:11px;font-weight:700}
+.cal-day-event{font-size:8px;color:var(--text2);margin-top:auto;line-height:1.3;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.dna-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.color-palette{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.color-swatch{width:48px;height:48px;border-radius:10px;cursor:pointer;position:relative;border:2px solid rgba(255,255,255,0.1);transition:all .2s}
+.color-swatch:hover{transform:scale(1.1)}
+.color-swatch input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.repurpose-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:14px}
+.repurpose-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s;text-align:center}
+.repurpose-item:hover{border-color:var(--accent)}
+.repurpose-item i{font-size:20px;margin-bottom:8px;color:var(--accent);display:block}
+.repurpose-item h5{font-size:12px;font-weight:700;margin-bottom:3px}
+.repurpose-item p{font-size:10px;color:var(--text3)}
+.quick-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.quick-action{padding:16px 12px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;transition:all .2s}
+.quick-action:hover{border-color:var(--accent);background:rgba(255,45,85,0.05);transform:translateY(-2px)}
+.quick-action i{font-size:22px;margin-bottom:8px;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+.quick-action h5{font-size:12px;font-weight:700;margin-bottom:2px}
+.quick-action p{font-size:10px;color:var(--text3)}
+.activity-list{display:flex;flex-direction:column;gap:10px}
+.activity-item{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;transition:all .2s}
+.activity-item:hover{background:rgba(255,255,255,0.03)}
+.activity-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.activity-content{flex:1;min-width:0}
+.activity-content h5{font-size:12px;font-weight:600;margin-bottom:2px}
+.activity-content p{font-size:11px;color:var(--text3)}
+.activity-time{font-size:10px;color:var(--text3);white-space:nowrap}
+.loading{display:flex;align-items:center;gap:10px;color:var(--text2);font-size:12px;padding:10px}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,45,85,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:24px;right:24px;background:rgba(18,18,26,0.95);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5);z-index:10000;transform:translateY(100px);opacity:0;transition:all .3s ease;max-width:320px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:rgba(16,185,129,0.4)}
+.toast.error{border-color:rgba(255,45,85,0.4)}
+.toast i{font-size:18px;flex-shrink:0}
+.toast.success i{color:var(--green)}
+.toast.error i{color:var(--accent)}
+.toast-msg{font-size:12px;font-weight:600}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;padding:24px}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-header h3{font-size:16px;font-weight:700}
+.modal-close{background:rgba(255,255,255,0.05);border:none;color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px}
+.error-box{background:rgba(255,45,85,0.1);border:1px solid rgba(255,45,85,0.3);border-radius:10px;padding:12px 16px;margin-top:14px;display:flex;align-items:center;gap:10px;color:var(--accent);font-size:12px;flex-wrap:wrap}
+.chart-container{position:relative;height:260px;margin-top:14px}
+.security-banner{background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(249,115,22,0.1));border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;color:#f59e0b;font-size:13px}
+.security-banner i{font-size:20px}
+@media(max-width:1024px){.slides-grid{grid-template-columns:1fr 1fr}.dna-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{transform:translateX(100%)}.sidebar.open{transform:translateX(0)}.main{margin-right:0}.slides-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.kpi-grid{grid-template-columns:1fr 1fr}.topbar{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-icon">ع</div>
+    <div class="logo-text"><h1>ERFAN OS</h1><p>Pro · نسخه ۵. (Secure)</p></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-title">اصلی</div>
+    <div class="nav-item active" data-page="dashboard"><i class="fas fa-chart-line"></i> داشبورد</div>
+    <div class="nav-item" data-page="story"><i class="fas fa-images"></i> استودیو استوری</div>
+    <div class="nav-item" data-page="reels"><i class="fas fa-film"></i> سناریو ریلز</div>
+    <div class="nav-item" data-page="direct"><i class="fas fa-comments"></i> دستیار دایرکت<span class="badge">NEW</span></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-title">رشد و فروش</div>
+    <div class="nav-item" data-page="crm"><i class="fas fa-users"></i> CRM مشتریان</div>
+    <div class="nav-item" data-page="calendar"><i class="fas fa-calendar-alt"></i> تقویم محتوا</div>
+    <div class="nav-item" data-page="hooks"><i class="fas fa-bolt"></i> موتور قلاب</div>
+    <div class="nav-item" data-page="seo"><i class="fas fa-search"></i> سئو اینستاگرام</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-title">هوشمند</div>
+    <div class="nav-item" data-page="brand"><i class="fas fa-fingerprint"></i> Brand DNA</div>
+    <div class="nav-item" data-page="repurpose"><i class="fas fa-recycle"></i> Repurposer</div>
+    <div class="nav-item" data-page="analytics"><i class="fas fa-chart-pie"></i> آنالیتیکس</div>
+    <div class="nav-item" data-page="settings"><i class="fas fa-cog"></i> تنظیمات</div>
+  </div>
+  <div class="user-card">
+    <div class="user-avatar">ع</div>
+    <div class="user-info"><h4>ERFAN HAJIABADI</h4><p>طرح حرفه‌ای · فعال</p></div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="page-title"><h2 id="pageTitle">داشبورد</h2><p id="pageDesc">نمای کلی عملکرد پیج شما</p></div>
+    <div class="topbar-actions">
+      <div class="status-pill warning" id="statusPill"><span class="status-dot"></span><span id="apiStatus">نیاز به کلید API</span></div>
+      <button class="icon-btn" onclick="showPage('settings')" title="تنظیمات"><i class="fas fa-cog"></i></button>
+      <button class="icon-btn" onclick="location.reload()" title="بارگذاری مجدد"><i class="fas fa-sync"></i></button>
+    </div>
+  </div>
+
+  <div class="security-banner" id="securityBanner" style="display:none">
+    <i class="fas fa-shield-alt"></i>
+    <div>
+      <strong>نکته امنیتی:</strong> کلید API شما فقط در مرورگر شما ذخیره می‌شود و هرگز در کد قرار نمی‌گیرد.
+    </div>
+  </div>
+
+  <div class="page active" id="page-dashboard">
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--card-accent:var(--grad1)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-users"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۱۲٪</div></div><div class="kpi-value">۱,۴۸۰</div><div class="kpi-label">فالوور کل</div></div>
+      <div class="kpi-card" style="--card-accent:var(--grad2)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-heart"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۸٪</div></div><div class="kpi-value">۴.۲٪</div><div class="kpi-label">نرخ تعامل</div></div>
+      <div class="kpi-card" style="--card-accent:linear-gradient(135deg,#3b82f6,#06b6d4)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-eye"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۲۳٪</div></div><div class="kpi-value">۸۴,۳۲۰</div><div class="kpi-label">دسترسی هفتگی</div></div>
+      <div class="kpi-card" style="--card-accent:linear-gradient(135deg,#10b981,#06b6d4)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-dollar-sign"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۳۱٪</div></div><div class="kpi-value">۲۴</div><div class="kpi-label">لید این هفته</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:24px">
+      <div class="card">
+        <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-chart-area"></i></div><div><h3>نمودار رشد</h3><p>عملکرد ۳۰ روز اخیر</p></div></div></div>
+        <div class="chart-container"><canvas id="growthChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-bolt"></i></div><div><h3>دسترسی سریع</h3><p>ابزارهای پرکاربرد</p></div></div></div>
+        <div class="quick-actions">
+          <div class="quick-action" onclick="showPage('story')"><i class="fas fa-images"></i><h5>استوری جدید</h5><p>۴ اسلاید هوشمند</p></div>
+          <div class="quick-action" onclick="showPage('reels')"><i class="fas fa-film"></i><h5>سناریو ریلز</h5><p>قلاب + کپشن</p></div>
+          <div class="quick-action" onclick="showPage('direct')"><i class="fas fa-comments"></i><h5>ویس فروش</h5><p>سناریوی ۴ ثانیه</p></div>
+          <div class="quick-action" onclick="showPage('hooks')"><i class="fas fa-bolt"></i><h5>قلاب آماده</h5><p>۰+ قلاب</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-history"></i></div><div><h3>فعالیت‌های اخیر</h3><p>آخرین اقدامات شما</p></div></div></div>
+      <div class="activity-list">
+        <div class="activity-item"><div class="activity-icon" style="background:rgba(255,45,85,0.15);color:var(--accent)"><i class="fas fa-images"></i></div><div class="activity-content"><h5>استوری ۴ اسلایدی تولید شد</h5><p>موضوع: اشتباهات رایج در الگوریتم</p></div><div class="activity-time">۲ ساعت پیش</div></div>
+        <div class="activity-item"><div class="activity-icon" style="background:rgba(168,85,247,0.15);color:var(--purple)"><i class="fas fa-film"></i></div><div class="activity-content"><h5>سناریو ریلز آماده شد</h5><p>ایده: ۳ ترفند برای افزایش ویو</p></div><div class="activity-time">۵ ساعت پیش</div></div>
+        <div class="activity-item"><div class="activity-icon" style="background:rgba(16,185,129,0.15);color:var(--green)"><i class="fas fa-user-plus"></i></div><div class="activity-content"><h5>مشتری جدید اضافه شد</h5><p>علی محمدی · لید داغ</p></div><div class="activity-time">دیروز</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-story">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-images"></i></div><div><h3>موتور تولید استوری هوشمند</h3><p> اسلاید مهندسی‌شده با Gemini</p></div></div></div>
+      <div class="form-group"><label class="form-label">موضوع استوری</label><input type="text" class="form-input" id="storyTopic" placeholder="مثلاً: اشتباهات رایج در الگوریتم اینستاگرام"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">روز هفته</label>
+          <select class="form-select" id="storyDay">
+            <option value="شنبه · باور غلط">شنبه · باور غلط</option>
+            <option value="یکشنبه · قلاب ۳ ثانیه">یکشنبه · قلاب  ثانیه</option>
+            <option value="دوشنبه · جعبه سوال">دوشنبه · جعبه سوال</option>
+            <option value="سه‌شنبه · سند اکسپلور">سه‌شنبه · سند اکسپلور</option>
+            <option value="چهارشنبه · اصلاح بایو">چهارشنبه · اصلاح بایو</option>
+            <option value="پنجشنبه · رزرو VIP">پنجشنبه · رزرو VIP</option>
+            <option value="جمعه · ذهنیت تولید">جمعه · ذهنیت تولید</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">لحن برند</label>
+          <select class="form-select" id="storyTone">
+            <option>حرفه‌ای و آموزشی</option>
+            <option>دوستانه و صمیمی</option>
+            <option>انگیزشی و پرانرژی</option>
+            <option>جدی و تخصصی</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="generateStory()" id="storyBtn"><i class="fas fa-magic"></i> تولید ۴ اسلاید هوشمند</button>
+      <div class="slides-grid" id="slidesGrid" style="display:none"></div>
+      <div class="output-box empty" id="storyOutput"><span><i class="fas fa-info-circle"></i> موضوع را وارد کنید و دکمه تولید را بزنید</span></div>
+      <div style="display:none;gap:10px;margin-top:14px;flex-wrap:wrap" id="storyActions">
+        <button class="btn btn-secondary" onclick="copyStoryText()"><i class="fas fa-copy"></i> کپی متن</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-reels">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-film"></i></div><div><h3>سناریونویس ریلز و کپشن</h3><p>قلاب، بدنه، CTA و کپشن SEO</p></div></div></div>
+      <div class="form-group"><label class="form-label">ایده ریلز</label><textarea class="form-textarea" id="reelsIdea" placeholder="مثلاً: ۳ اشتباهی که باعث افت ویو ریلز می‌شود"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">مدت زمان (ثانیه)</label>
+          <select class="form-select" id="reelsDuration">
+            <option>۱۵ ثانیه · میکرو</option>
+            <option selected>۳۰ ثانیه · استاندارد</option>
+            <option>۰ ثانیه · کامل</option>
+            <option>۹۰ ثانیه · آموزشی</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">نوع محتوا</label>
+          <select class="form-select" id="reelsType">
+            <option selected>آموزشی</option>
+            <option>انگیزشی</option>
+            <option>سرگرمی</option>
+            <option>فروش</option>
+            <option>داستانی</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="generateReels()" id="reelsBtn"><i class="fas fa-magic"></i> تولید ساختار ریلز</button>
+      <div class="output-box empty" id="reelsOutput"><span><i class="fas fa-info-circle"></i> ایده را بنویسید و دکمه تولید را بزنید</span></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-direct">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-comments"></i></div><div><h3>دستیار هوشمند فروش دایرکت</h3><p>پیام اولیه + سناریوی ویس ۴۵ ثانیه‌ای</p></div></div></div>
+      <div class="form-group"><label class="form-label">نام مشتری</label><input type="text" class="form-input" id="directName" placeholder="مثلاً: علی محمدی"></div>
+      <div class="form-group"><label class="form-label">مشکل مشتری</label><textarea class="form-textarea" id="directProblem" placeholder="مثلاً: افت شدید ویو ریلزهام / بازدید بالا اما فروش صفر"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">مرحله قیف فروش</label>
+          <select class="form-select" id="directStage">
+            <option>آگاهی اولیه</option>
+            <option>علاقه‌مند</option>
+            <option>در حال بررسی</option>
+            <option>آماده خرید</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">لحن پاسخ</label>
+          <select class="form-select" id="directTone">
+            <option selected>دوستانه و همدلانه</option>
+            <option>حرفه‌ای و متخصص</option>
+            <option>انگیزشی و قاطع</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="generateDirect()" id="directBtn"><i class="fas fa-magic"></i> تولید سناریوی فروش</button>
+      <div class="output-box empty" id="directOutput"><span><i class="fas fa-info-circle"></i> اطلاعات مشتری را وارد کنید</span></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-crm">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><div class="card-title-icon"><i class="fas fa-users"></i></div><div><h3>مدیریت مشتریان (CRM)</h3><p>دسته‌بندی، پیگیری و تبدیل لید به مشتری</p></div></div></div>
+        <button class="btn btn-primary" onclick="openCRMModal()" style="padding:8px 14px;font-size:12px"><i class="fas fa-plus"></i> مشتری جدید</button>
+      </div>
+      <div class="crm-filters">
+        <div class="crm-filter active" data-filter="all">همه (<span id="countAll">0</span>)</div>
+        <div class="crm-filter" data-filter="hot"> داغ (<span id="countHot">0</span>)</div>
+        <div class="crm-filter" data-filter="warm">🌡️ گرم (<span id="countWarm">0</span>)</div>
+        <div class="crm-filter" data-filter="cold">❄️ سرد (<span id="countCold">0</span>)</div>
+      </div>
+      <div class="crm-list" id="crmList"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-calendar">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><div class="card-title-icon"><i class="fas fa-calendar-alt"></i></div><div><h3>تقویم محتوایی هوشمند</h3><p>برنامه‌ریزی ۳۰ روزه با یک کلیک</p></div></div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="generate30DayPlan()" style="padding:8px 14px;font-size:12px"><i class="fas fa-magic"></i> برنامه ۳۰ روزه</button>
+          <button class="btn btn-primary" onclick="openCalendarModal()" style="padding:8px 14px;font-size:12px"><i class="fas fa-plus"></i> رویداد جدید</button>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h3 id="calendarMonth" style="font-size:16px;font-weight:700"></h3>
+        <div style="display:flex;gap:6px">
+          <button class="icon-btn" onclick="changeMonth(-1)"><i class="fas fa-chevron-right"></i></button>
+          <button class="icon-btn" onclick="changeMonth(1)"><i class="fas fa-chevron-left"></i></button>
+        </div>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-hooks">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><div class="card-title-icon"><i class="fas fa-bolt"></i></div><div><h3>موتور قلاب‌سازی پیشرفته</h3><p>۵۰۰+ قلاب تست‌شده فارسی</p></div></div></div>
+        <button class="btn btn-primary" onclick="generateHooks()" style="padding:8px 14px;font-size:12px"><i class="fas fa-magic"></i> تولید قلاب جدید</button>
+      </div>
+      <div class="form-group"><label class="form-label">دسته‌بندی قلاب</label>
+        <div class="crm-filters" id="hookFilters">
+          <div class="crm-filter active" data-cat="all">همه</div>
+          <div class="crm-filter" data-cat="curiosity"> کنجکاوی</div>
+          <div class="crm-filter" data-cat="pain"> درد</div>
+          <div class="crm-filter" data-cat="promise">✨ قول</div>
+          <div class="crm-filter" data-cat="story">📖 داستان</div>
+          <div class="crm-filter" data-cat="controversy">⚡ جنجالی</div>
+        </div>
+      </div>
+      <div class="hook-grid" id="hookGrid"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-seo">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-search"></i></div><div><h3>سئو اینستاگرام</h3><p>هشتگ، Alt Text، کپشن SEO-محور</p></div></div></div>
+      <div class="form-group"><label class="form-label">موضوع پست</label><input type="text" class="form-input" id="seoTopic" placeholder="مثلاً: آموزش رشد پیج اینستاگرام"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Niche (حوزه فعالیت)</label>
+          <select class="form-select" id="seoNiche">
+            <option selected>آموزش دیجیتال مارکتینگ</option>
+            <option>فروش آنلاین</option>
+            <option>لایف استایل</option>
+            <option>تکنولوژی</option>
+            <option>سلامت و تناسب اندام</option>
+            <option>آشپزی و غذا</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">تعداد هشتگ</label>
+          <select class="form-select" id="seoHashtags">
+            <option>۱۰ هشتگ</option>
+            <option selected>۲ هشتگ</option>
+            <option>۳۰ هشتگ (حداکثر)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="generateSEO()" id="seoBtn"><i class="fas fa-magic"></i> تولید پکیج سئو</button>
+      <div class="output-box empty" id="seoOutput"><span><i class="fas fa-info-circle"></i> موضوع را وارد کنید</span></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-brand">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><div class="card-title-icon"><i class="fas fa-fingerprint"></i></div><div><h3>Brand DNA · هویت برند</h3><p>سیستم لحن و هویت بصری شما</p></div></div></div>
+        <button class="btn btn-primary" onclick="saveBrandDNA()" style="padding:8px 14px;font-size:12px"><i class="fas fa-save"></i> ذخیره</button>
+      </div>
+      <div class="dna-grid">
+        <div>
+          <div class="form-group"><label class="form-label">نام برند</label><input type="text" class="form-input" id="brandName" placeholder="ERFAN OS"></div>
+          <div class="form-group"><label class="form-label">شعار برند</label><input type="text" class="form-input" id="brandSlogan" placeholder="سیستم‌عامل اینستاگرام"></div>
+          <div class="form-group"><label class="form-label">ماموریت</label><textarea class="form-textarea" id="brandMission" placeholder="ما به کسب‌وکارها کمک می‌کنیم..."></textarea></div>
+          <div class="form-group"><label class="form-label">ارزش‌های اصلی</label><input type="text" class="form-input" id="brandValues" placeholder="نوآوری، کیفیت، سرعت"></div>
+        </div>
+        <div>
+          <div class="form-group"><label class="form-label">لحن برند</label>
+            <select class="form-select" id="brandTone">
+              <option selected>حرفه‌ای و متخصص</option>
+              <option>دوستانه و صمیمی</option>
+              <option>انگیزشی و پرانرژی</option>
+              <option>جدی و رسمی</option>
+              <option>خلاق و متفاوت</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">پالت رنگ</label>
+            <div class="color-palette" id="colorPalette">
+              <div class="color-swatch" style="background:#ff2d55"><input type="color" value="#ff2d55"></div>
+              <div class="color-swatch" style="background:#a855f7"><input type="color" value="#a855f7"></div>
+              <div class="color-swatch" style="background:#3b82f6"><input type="color" value="#3b82f6"></div>
+              <div class="color-swatch" style="background:#10b981"><input type="color" value="#10b981"></div>
+              <div class="color-swatch" style="background:#f59e0b"><input type="color" value="#f59e0b"></div>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">کلمات کلیدی برند</label><input type="text" class="form-input" id="brandKeywords" placeholder="هوش مصنوعی، رشد، فروش"></div>
+          <div class="form-group"><label class="form-label">مخاطب هدف</label><input type="text" class="form-input" id="brandAudience" placeholder="صاحبان کسب‌وکار آنلاین ۲۵-۴۰ سال"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-repurpose">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-recycle"></i></div><div><h3>Content Repurposer</h3><p>یک محتوا → ۱۰ فرمت مختلف</p></div></div></div>
+      <div class="form-group"><label class="form-label">محتوای اصلی</label><textarea class="form-textarea" id="repurposeInput" style="min-height:140px" placeholder="یک ریلز، پست، یا مقاله که می‌خواهید به فرمت‌های دیگر تبدیل شود..."></textarea></div>
+      <div class="form-group"><label class="form-label">فرمت‌های خروجی (کلیک کنید)</label>
+        <div class="repurpose-grid">
+          <div class="repurpose-item" data-format="twitter"><i class="fab fa-twitter"></i><h5>توییتر / X</h5><p>رشته توییت</p></div>
+          <div class="repurpose-item" data-format="linkedin"><i class="fab fa-linkedin"></i><h5>لینکدین</h5><p>پست حرفه‌ای</p></div>
+          <div class="repurpose-item" data-format="blog"><i class="fas fa-blog"></i><h5>بلاگ</h5><p>مقاله کامل</p></div>
+          <div class="repurpose-item" data-format="newsletter"><i class="fas fa-envelope"></i><h5>خبرنامه</h5><p>ایمیل مارکتینگ</p></div>
+          <div class="repurpose-item" data-format="youtube"><i class="fab fa-youtube"></i><h5>یوتیوب</h5><p>اسکریپت ویدیو</p></div>
+          <div class="repurpose-item" data-format="podcast"><i class="fas fa-podcast"></i><h5>پادکست</h5><p>اسکریپت صوتی</p></div>
+          <div class="repurpose-item" data-format="carousel"><i class="fas fa-th-large"></i><h5>اسلایدی</h5><p>۱۰ اسلاید</p></div>
+          <div class="repurpose-item" data-format="quote"><i class="fas fa-quote-right"></i><h5>نقل قول</h5><p>۵ جمله طلایی</p></div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="generateRepurpose()" id="repurposeBtn"><i class="fas fa-magic"></i> تبدیل به همه فرمت‌ها</button>
+      <div class="output-box empty" id="repurposeOutput"><span><i class="fas fa-info-circle"></i> محتوا را وارد کنید و فرمت‌ها را انتخاب کنید</span></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-analytics">
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--card-accent:var(--grad1)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-chart-line"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۱۸٪</div></div><div class="kpi-value">۸۴٪</div><div class="kpi-label">نرخ رشد ماهانه</div></div>
+      <div class="kpi-card" style="--card-accent:var(--grad2)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-fire"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۴۲٪</div></div><div class="kpi-value">۱۲</div><div class="kpi-label">پست وایرال این ماه</div></div>
+      <div class="kpi-card" style="--card-accent:linear-gradient(135deg,#3b82f6,#06b6d4)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-clock"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۵٪</div></div><div class="kpi-value">۱:۰۰</div><div class="kpi-label">بهترین ساعت انتشار</div></div>
+      <div class="kpi-card" style="--card-accent:linear-gradient(135deg,#10b981,#06b6d4)"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-bullseye"></i></div><div class="kpi-trend"><i class="fas fa-arrow-up"></i> ۲۷٪</div></div><div class="kpi-value">.۸٪</div><div class="kpi-label">نرخ تبدیل</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:24px">
+      <div class="card">
+        <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-chart-bar"></i></div><div><h3>توزیع نوع محتوا</h3><p>تحلیل عملکرد بر اساس دسته</p></div></div></div>
+        <div class="chart-container"><canvas id="contentTypeChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-trophy"></i></div><div><h3>محتوای برتر</h3><p>۵ پست با بیشترین تعامل</p></div></div></div>
+        <div class="activity-list">
+          <div class="activity-item"><div class="activity-icon" style="background:rgba(255,45,85,0.15);color:var(--accent)">🥇</div><div class="activity-content"><h5>۳ اشتباه مرگبار در الگوریتم</h5><p>۱۲.K لایک · ۸۴ کامنت · ۲.۱K ذخیره</p></div></div>
+          <div class="activity-item"><div class="activity-icon" style="background:rgba(168,85,247,0.15);color:var(--purple)">🥈</div><div class="activity-content"><h5>راز وایرال شدن ریلز</h5><p>۹.۸K لایک · ۶۰ کامنت · ۱.۸K ذخیره</p></div></div>
+          <div class="activity-item"><div class="activity-icon" style="background:rgba(245,158,11,0.15);color:#f59e0b">🥉</div><div class="activity-content"><h5>فرمول کپشن‌نویسی</h5><p>۷.۲K لایک · ۴۸۰ کامنت · .۲K ذخیره</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><div class="card-title-icon"><i class="fas fa-brain"></i></div><div><h3>تحلیل هوشمند</h3><p>پیشنهادات AI برای بهبود عملکرد</p></div></div></div>
+        <button class="btn btn-primary" onclick="analyzePerformance()" id="analyzeBtn" style="padding:8px 14px;font-size:12px"><i class="fas fa-magic"></i> تحلیل جدید</button>
+      </div>
+      <div class="output-box empty" id="analyticsOutput"><span><i class="fas fa-info-circle"></i> برای دریافت تحلیل هوشمند، دکمه را بزنید</span></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-settings">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-key"></i></div><div><h3>تنظیم کلید هوش مصنوعی</h3><p>Google Gemini API</p></div></div></div>
+      <div class="form-group"><label class="form-label">کلید API</label><input type="password" class="form-input" id="apiKey" placeholder="کلید Gemini خود را وارد کنید"></div>
+      <div class="form-group"><label class="form-label">مدل</label>
+        <select class="form-select" id="modelSelect">
+          <option value="gemini-2.5-flash">✨ Gemini 2.5 Flash (پیشنهادی - جدید و پایدار)</option>
+          <option value="gemini-2.5-pro"> Gemini 2.5 Pro (حرفه‌ای)</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="testAPI()" id="testBtn"><i class="fas fa-plug"></i> تست اتصال</button>
+        <button class="btn btn-secondary" onclick="saveAPI()"><i class="fas fa-save"></i> ذخیره</button>
+      </div>
+      <div id="apiErrorBox" style="display:none"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title"><div class="card-title-icon"><i class="fas fa-database"></i></div><div><h3>مدیریت داده‌ها</h3><p>پشتیبان‌گیری و بازیابی</p></div></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> خروجی JSON</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> ورود JSON</button>
+        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+        <button class="btn btn-secondary" onclick="clearAllData()" style="color:var(--accent)"><i class="fas fa-trash"></i> پاک کردن همه</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<div class="modal-overlay" id="crmModal">
+  <div class="modal">
+    <div class="modal-header"><h3>مشتری جدید</h3><button class="modal-close" onclick="closeCRMModal()"><i class="fas fa-times"></i></button></div>
+    <div class="form-group"><label class="form-label">نام</label><input type="text" class="form-input" id="crmName" placeholder="نام مشتری"></div>
+    <div class="form-group"><label class="form-label">شماره تماس / آیدی</label><input type="text" class="form-input" id="crmContact" placeholder="@username یا 09xxxxxxxxx"></div>
+    <div class="form-group"><label class="form-label">نیاز / مشکل</label><textarea class="form-textarea" id="crmNeed" placeholder="مشکل یا نیاز مشتری"></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">وضعیت</label>
+        <select class="form-select" id="crmStatus">
+          <option value="hot">🔥 داغ</option>
+          <option value="warm">🌡️ گرم</option>
+          <option value="cold">❄️ سرد</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">ارزش تخمینی (تومان)</label><input type="number" class="form-input" id="crmValue" placeholder="0"></div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="saveCRM()"><i class="fas fa-save"></i> ذخیره مشتری</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="calendarModal">
+  <div class="modal">
+    <div class="modal-header"><h3>رویداد جدید</h3><button class="modal-close" onclick="closeCalendarModal()"><i class="fas fa-times"></i></button></div>
+    <div class="form-group"><label class="form-label">تاریخ</label><input type="date" class="form-input" id="calDate"></div>
+    <div class="form-group"><label class="form-label">نوع محتوا</label>
+      <select class="form-select" id="calType">
+        <option>ریلز</option>
+        <option>استوری</option>
+        <option>پست اسلایدی</option>
+        <option>لایو</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">موضوع</label><textarea class="form-textarea" id="calTopic" placeholder="موضوع محتوا"></textarea></div>
+    <button class="btn btn-primary btn-block" onclick="saveCalendarEvent()"><i class="fas fa-save"></i> ذخیره رویداد</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><div class="toast-msg" id="toastMsg">عملیات موفق</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// SECURE: No API key in code - user must enter it in settings
+const VALID_MODELS = ['gemini-2.5-flash', 'gemini-2.5-pro'];
+const DEFAULT_MODEL = 'gemini-2.5-flash';
+
+// Fix localStorage
+let savedModel = localStorage.getItem('erfan_model');
+if (!savedModel || !VALID_MODELS.includes(savedModel)) {
+  localStorage.setItem('erfan_model', DEFAULT_MODEL);
+  savedModel = DEFAULT_MODEL;
+}
+
+const state = {
+  apiKey: localStorage.getItem('erfan_api_key') || '',
+  model: savedModel,
+  customers: JSON.parse(localStorage.getItem('erfan_customers') || '[]'),
+  events: JSON.parse(localStorage.getItem('erfan_events') || '[]'),
+  brand: JSON.parse(localStorage.getItem('erfan_brand') || '{}'),
+  activities: JSON.parse(localStorage.getItem('erfan_activities') || '[]'),
+  currentMonth: new Date(),
+  currentFilter: 'all',
+  currentHookCat: 'all',
+  selectedRepurposeFormats: new Set(),
+  apiConnected: false
+};
+
+// Navigation
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    try { showPage(item.dataset.page); } catch(e) { console.error(e); }
+  });
+});
+
+function showPage(page) {
+  try {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const navItem = document.querySelector(`[data-page="${page}"]`);
+    if (navItem) navItem.classList.add('active');
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const pageEl = document.getElementById(`page-${page}`);
+    if (pageEl) pageEl.classList.add('active');
+    
+    const titles = {
+      dashboard: ['داشبورد', 'نمای کلی عملکرد پیج شما'],
+      story: ['استودیو استوری', 'تولید  اسلاید مهندسی‌شده'],
+      reels: ['سناریو ریلز', 'قلاب، بدنه، CTA و کپشن'],
+      direct: ['دستیار دایرکت', 'سناریوی فروش ۴ ثانیه‌ای'],
+      crm: ['CRM مشتریان', 'مدیریت و پیگیری لیدها'],
+      calendar: ['تقویم محتوا', 'برنامه‌ریزی ۳۰ روزه'],
+      hooks: ['موتور قلاب', '۵۰+ قلاب تست‌شده'],
+      seo: ['سئو اینستاگرام', 'هشتگ و کپشن SEO'],
+      brand: ['Brand DNA', 'هویت برند شما'],
+      repurpose: ['Repurposer', 'یک محتوا، ۱ فرمت'],
+      analytics: ['آنالیتیکس', 'تحلیل هوشمند عملکرد'],
+      settings: ['تنظیمات', 'مدیریت سیستم']
+    };
+    if (titles[page]) {
+      document.getElementById('pageTitle').textContent = titles[page][0];
+      document.getElementById('pageDesc').textContent = titles[page][1];
+    }
+    
+    if (page === 'calendar') renderCalendar();
+    if (page === 'crm') renderCRM();
+    if (page === 'hooks') renderHooks();
+    if (page === 'brand') loadBrandDNA();
+    if (page === 'analytics') initAnalyticsChart();
+  } catch(e) { console.error('showPage error:', e); }
+}
+
+function showToast(msg, type='success') {
+  try {
+    const toast = document.getElementById('toast');
+    const icon = toast.querySelector('i');
+    toast.className = `toast ${type}`;
+    icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  } catch(e) { console.error(e); }
+}
+
+async function callGemini(prompt) {
+  if (!state.apiKey) {
+    showToast('لطفاً ابتدا کلید API را در بخش تنظیمات وارد کنید', 'error');
+    showPage('settings');
+    throw new Error('No API key');
+  }
+  
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${state.model}:generateContent?key=${state.apiKey}`;
+  
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      contents: [{parts: [{text: prompt}]}],
+      generationConfig: {temperature: 0.8, maxOutputTokens: 2048, topP: 0.95}
+    })
+  });
+  
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`API Error: ${res.status} - ${errorText.substring(0, 200)}`);
+  }
+  
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+async function generateWithLoading(btnId, promptFn, outputId) {
+  try {
+    const btn = document.getElementById(btnId);
+    const output = document.getElementById(outputId);
+    if (!btn || !output) return;
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> در حال تولید...';
+    output.className = 'output-box';
+    output.innerHTML = '<div class="loading"><span class="spinner"></span> در حال پردازش با Gemini...</div>';
+    
+    const prompt = promptFn();
+    const result = await callGemini(prompt);
+    output.innerHTML = `<button class="copy-btn" onclick="copyOutput('${outputId}')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;
+    addActivity('تولید محتوا', prompt.substring(0, 50));
+    showToast('تولید با موفقیت انجام شد');
+    
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+  } catch(e) {
+    const output = document.getElementById(outputId);
+    if (output) {
+      output.className = 'output-box';
+      output.innerHTML = `<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;
+    }
+    showToast('خطا در تولید: ' + e.message, 'error');
+    const btn = document.getElementById(btnId);
+    if (btn) {
+      btn.disabled = false;
+      const labels = {reelsBtn: 'تولید ساختار ریلز', directBtn: 'تولید سناریوی فروش', seoBtn: 'تولید پکیج سئو', repurposeBtn: 'تبدیل به همه فرمت‌ها', analyzeBtn: 'تحلیل جدید'};
+      btn.innerHTML = '<i class="fas fa-magic"></i> ' + (labels[btnId] || 'تولید');
+    }
+  }
+}
+
+async function generateStory() {
+  try {
+    const topic = document.getElementById('storyTopic').value.trim();
+    if (!topic) { showToast('لطفاً موضوع را وارد کنید', 'error'); return; }
+    const day = document.getElementById('storyDay').value;
+    const tone = document.getElementById('storyTone').value;
+    const prompt = `تو یک متخصص اینستاگرام فارسی هستی. برای موضوع "${topic}" با لحن "${tone}" در روز ${day}، ۴ اسلاید استوری مهندسی‌شده تولید کن.
+
+ساختار:
+اسلاید ۱ - قلاب (Hook): جمله شوکه‌کننده یا سوالی
+اسلاید ۲ - ارزش (Value): محتوای اصلی آموزشی
+اسلاید ۳ - سند (Proof): مثال واقعی، آمار
+اسلاید ۴ - اکشن (CTA): دعوت به اقدام
+
+خروجی JSON:
+{"slides":[{"num":1,"type":"قلاب","title":"...","body":"..."},{"num":2,"type":"ارزش","title":"...","body":"..."},{"num":3,"type":"سند","title":"...","body":"..."},{"num":4,"type":"اکشن","title":"...","body":"..."}]}
+
+فقط JSON خالص برگردان.`;
+    
+    const btn = document.getElementById('storyBtn');
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> در حال تولید...';
+    
+    const result = await callGemini(prompt);
+    const jsonMatch = result.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('پاسخ نامعتبر');
+    const data = JSON.parse(jsonMatch[0]);
+    renderSlides(data.slides);
+    addActivity('استوری تولید شد', topic);
+    showToast('۴ اسلاید با موفقیت تولید شد');
+    
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+  } catch(e) {
+    showToast('خطا: ' + e.message, 'error');
+    const btn = document.getElementById('storyBtn');
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-magic"></i> تولید  اسلاید هوشمند'; }
+  }
+}
+
+function renderSlides(slides) {
+  const grid = document.getElementById('slidesGrid');
+  grid.style.display = 'grid';
+  grid.innerHTML = slides.map((s, i) => `
+    <div class="slide-card ${i===0?'active':''}" onclick="selectSlide(${i})">
+      <div class="slide-num">${s.num}</div>
+      <div class="slide-type">${s.type}</div>
+      <div class="slide-title">${s.title}</div>
+      <div class="slide-body">${s.body}</div>
+    </div>
+  `).join('');
+  const output = document.getElementById('storyOutput');
+  output.className = 'output-box';
+  output.innerHTML = `<button class="copy-btn" onclick="copyStoryText()"><i class="fas fa-copy"></i> کپی</button><pre>${slides.map(s => `【 اسلاید ${s.num} - ${s.type} 】\n${s.title}\n\n${s.body}\n`).join('\n')}</pre>`;
+  document.getElementById('storyActions').style.display = 'flex';
+}
+
+function selectSlide(idx) { document.querySelectorAll('.slide-card').forEach((c,i) => c.classList.toggle('active', i===idx)); }
+function copyStoryText() { const text = document.querySelector('#storyOutput pre')?.textContent; if(text) { navigator.clipboard.writeText(text); showToast('کپی شد'); } }
+
+async function generateReels() {
+  const idea = document.getElementById('reelsIdea').value.trim();
+  if (!idea) { showToast('لطفاً ایده را وارد کنید', 'error'); return; }
+  const duration = document.getElementById('reelsDuration').value;
+  const type = document.getElementById('reelsType').value;
+  const prompt = `تو یک متخصص ریلز اینستاگرام فارسی هستی. برای ایده "${idea}" با نوع "${type}" و مدت "${duration}"، یک سناریوی کامل ریلز بنویس.
+
+ساختار:
+۱. قلاب (۳ ثانیه اول)
+۲. مقدمه (۵ ثانیه)
+۳. بدنه اصلی با زمان‌بندی
+۴. CTA (۵ ثانیه آخر)
+۵. کپشن SEO با ۱۰ هشتگ
+۶. موزیک پیشنهادی
+
+به فارسی روان بنویس.`;
+  await generateWithLoading('reelsBtn', () => prompt, 'reelsOutput');
+}
+
+async function generateDirect() {
+  const name = document.getElementById('directName').value.trim();
+  const problem = document.getElementById('directProblem').value.trim();
+  if (!name || !problem) { showToast('لطفاً نام و مشکل را وارد کنید', 'error'); return; }
+  const stage = document.getElementById('directStage').value;
+  const tone = document.getElementById('directTone').value;
+  const prompt = `تو یک متخصص فروش دایرکت اینستاگرام هستی. برای مشتری "${name}" با مشکل "${problem}" در مرحله "${stage}" با لحن "${tone}":
+
+۱. پیام اولیه دایرکت (حداکثر ۱۵۰ کلمه)
+. سناریوی ویس ۴۵ ثانیه‌ای (ثانیه ۰-۵، ۵-۱۵، ۱۵-۳۰، ۳۰-۴۰، ۴۰-۴۵)
+. ۳ پاسخ احتمالی مشتری و جواب هر کدام
+
+به فارسی محاوره‌ای بنویس.`;
+  await generateWithLoading('directBtn', () => prompt, 'directOutput');
+}
+
+function openCRMModal() { document.getElementById('crmModal').classList.add('show'); }
+function closeCRMModal() { document.getElementById('crmModal').classList.remove('show'); }
+
+function saveCRM() {
+  const customer = {
+    id: Date.now(),
+    name: document.getElementById('crmName').value.trim(),
+    contact: document.getElementById('crmContact').value.trim(),
+    need: document.getElementById('crmNeed').value.trim(),
+    status: document.getElementById('crmStatus').value,
+    value: document.getElementById('crmValue').value || 0,
+    createdAt: new Date().toISOString()
+  };
+  if (!customer.name) { showToast('نام را وارد کنید', 'error'); return; }
+  state.customers.unshift(customer);
+  localStorage.setItem('erfan_customers', JSON.stringify(state.customers));
+  closeCRMModal();
+  renderCRM();
+  showToast('مشتری اضافه شد');
+  ['crmName','crmContact','crmNeed','crmValue'].forEach(id => document.getElementById(id).value = '');
+}
+
+function renderCRM() {
+  const list = document.getElementById('crmList');
+  const filtered = state.currentFilter === 'all' ? state.customers : state.customers.filter(c => c.status === state.currentFilter);
+  document.getElementById('countAll').textContent = state.customers.length;
+  document.getElementById('countHot').textContent = state.customers.filter(c => c.status === 'hot').length;
+  document.getElementById('countWarm').textContent = state.customers.filter(c => c.status === 'warm').length;
+  document.getElementById('countCold').textContent = state.customers.filter(c => c.status === 'cold').length;
+  if (filtered.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text3)"><i class="fas fa-users" style="font-size:40px;margin-bottom:12px;opacity:0.3"></i><p>هنوز مشتری اضافه نشده</p></div>`;
+    return;
+  }
+  const colors = {hot:'var(--grad1)', warm:'linear-gradient(135deg,#f59e0b,#f97316)', cold:'linear-gradient(135deg,#3b82f6,#06b6d4)'};
+  const tags = {hot:'<span class="crm-tag tag-hot">🔥 داغ</span>', warm:'<span class="crm-tag tag-warm">🌡️ گرم</span>', cold:'<span class="crm-tag tag-cold">❄️ سرد</span>'};
+  list.innerHTML = filtered.map(c => `
+    <div class="crm-item">
+      <div class="crm-avatar" style="background:${colors[c.status]}">${c.name[0]}</div>
+      <div class="crm-info"><h4>${c.name}</h4><p>${c.contact || 'بدون تماس'} · ${c.need || 'بدون نیاز'}</p></div>
+      <div class="crm-meta">${tags[c.status]}<button class="icon-btn" onclick="deleteCRM(${c.id})" title="حذف" style="width:32px;height:32px"><i class="fas fa-trash" style="font-size:12px"></i></button></div>
+    </div>
+  `).join('');
+}
+
+function deleteCRM(id) { if(!confirm('حذف این مشتری؟')) return; state.customers = state.customers.filter(c => c.id !== id); localStorage.setItem('erfan_customers', JSON.stringify(state.customers)); renderCRM(); showToast('مشتری حذف شد'); }
+
+document.querySelectorAll('.crm-filter').forEach(f => {
+  f.addEventListener('click', () => {
+    document.querySelectorAll('.crm-filter').forEach(x => x.classList.remove('active'));
+    f.classList.add('active');
+    state.currentFilter = f.dataset.filter;
+    renderCRM();
+  });
+});
+
+function renderCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  const date = state.currentMonth;
+  const monthNames = ['ژانویه','فوریه','مارس','آوریل','مه','ژوئن','ژوئیه','اوت','سپتامبر','اکتبر','نوامبر','دسامبر'];
+  document.getElementById('calendarMonth').textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  const dayNames = ['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه'];
+  let html = dayNames.map(d => `<div class="cal-day-name">${d}</div>`).join('');
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  const startOffset = (firstDay.getDay() + 1) % 7;
+  for (let i = 0; i < startOffset; i++) html += '<div></div>';
+  const today = new Date();
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const dateStr = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const events = state.events.filter(e => e.date === dateStr);
+    const isToday = today.getDate() === d && today.getMonth() === date.getMonth() && today.getFullYear() === date.getFullYear();
+    html += `<div class="cal-day ${isToday?'today':''} ${events.length?'has-content':''}" onclick="openCalendarModal('${dateStr}')"><div class="cal-day-num">${d}</div>${events.map(e => `<div class="cal-day-event">${e.type}: ${e.topic.substring(0,20)}</div>`).join('')}</div>`;
+  }
+  grid.innerHTML = html;
+}
+
+function changeMonth(delta) { state.currentMonth.setMonth(state.currentMonth.getMonth() + delta); renderCalendar(); }
+function openCalendarModal(date) { document.getElementById('calendarModal').classList.add('show'); if(date) document.getElementById('calDate').value = date; }
+function closeCalendarModal() { document.getElementById('calendarModal').classList.remove('show'); }
+
+function saveCalendarEvent() {
+  const event = {id: Date.now(), date: document.getElementById('calDate').value, type: document.getElementById('calType').value, topic: document.getElementById('calTopic').value.trim()};
+  if (!event.date || !event.topic) { showToast('تاریخ و موضوع را وارد کنید', 'error'); return; }
+  state.events.push(event);
+  localStorage.setItem('erfan_events', JSON.stringify(state.events));
+  closeCalendarModal();
+  renderCalendar();
+  showToast('رویداد اضافه شد');
+  document.getElementById('calTopic').value = '';
+}
+
+async function generate30DayPlan() {
+  showToast('در حال تولید برنامه ۳۰ روزه...');
+  const prompt = `یک برنامه محتوایی ۳۰ روزه برای اینستاگرام فارسی طراحی کن.
+
+خروجی JSON:
+{"days":[{"date":"YYYY-MM-DD","type":"ریلز/استوری/پست","topic":"..."}]}
+
+از تاریخ فردا شروع کن و ۳۰ روز ادامه بده. فقط JSON برگردان.`;
+  try {
+    const result = await callGemini(prompt);
+    const jsonMatch = result.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('پاسخ نامعتبر');
+    const data = JSON.parse(jsonMatch[0]);
+    data.days.forEach(d => state.events.push({id: Date.now() + Math.random(), ...d}));
+    localStorage.setItem('erfan_events', JSON.stringify(state.events));
+    renderCalendar();
+    showToast('برنامه ۳۰ روزه ساخته شد');
+  } catch(e) { showToast('خطا: ' + e.message, 'error'); }
+}
+
+const HOOKS_LIBRARY = [
+  {cat:'curiosity', text:'این اشتباه ۹۰٪ پیج‌ها رو نابود می‌کنه', score:95},
+  {cat:'curiosity', text:'راز پشت پیج‌های ۱۰۰کا که هیچکس نمی‌گه', score:92},
+  {cat:'pain', text:'اگه ویو ریلزت افت کرده، این ویدیو رو ببین', score:88},
+  {cat:'pain', text:'چرا با وجود فالوور زیاد، فروش نداری؟', score:90},
+  {cat:'promise', text:'۳ ترفند که پیجت رو در ۷ روز منفجر می‌کنه', score:94},
+  {cat:'promise', text:'فرمولی که ۱۰ پیج رو به ۱۰۰کا رسوند', score:96},
+  {cat:'story', text:'۶ ماه پیش ۵۰۰ فالوور داشتم، الان...', score:85},
+  {cat:'story', text:'داستان واقعی: چطور از صفر به ماهی ۵ میلیون رسیدم', score:91},
+  {cat:'controversy', text:'الگوریتم اینستاگرام دروغ می‌گه!', score:93},
+  {cat:'controversy', text:'همه چیزایی که درباره ریلز بهت گفتن غلطه', score:89},
+  {cat:'curiosity', text:'این کلمه توی کپشن، تعامل رو ۳ برابر می‌کنه', score:87},
+  {cat:'pain', text:'خسته شدی از تولید محتوا بدون نتیجه؟', score:86},
+  {cat:'promise', text:'قانون ۳ ثانیه‌ای که ریلزت رو وایرال می‌کنه', score:97},
+  {cat:'story', text:'اولین فروش ۱۰ میلیونی‌ام اینطوری اتفاق افتاد', score:88},
+  {cat:'controversy', text:'هشتگ‌ها دیگه کار نمی‌کنن، دلیلش اینه', score:90}
+];
+
+function renderHooks() {
+  const grid = document.getElementById('hookGrid');
+  const filtered = state.currentHookCat === 'all' ? HOOKS_LIBRARY : HOOKS_LIBRARY.filter(h => h.cat === state.currentHookCat);
+  const catNames = {curiosity:'کنجکاوی', pain:'درد', promise:'قول', story:'داستان', controversy:'جنجالی'};
+  grid.innerHTML = filtered.map(h => `
+    <div class="hook-card" onclick="copyHook(this, '${h.text.replace(/'/g,"\\'")}')">
+      <span class="hook-category">${catNames[h.cat]}</span>
+      <div class="hook-text">${h.text}</div>
+      <div class="hook-score"><span>قدرت: ${h.score}/100</span><div class="score-bar"><div class="score-fill" style="width:${h.score}%"></div></div><i class="fas fa-copy" style="cursor:pointer"></i></div>
+    </div>
+  `).join('');
+}
+
+function copyHook(el, text) { navigator.clipboard.writeText(text); showToast('قلاب کپی شد'); }
+
+document.querySelectorAll('#hookFilters .crm-filter').forEach(f => {
+  f.addEventListener('click', () => {
+    document.querySelectorAll('#hookFilters .crm-filter').forEach(x => x.classList.remove('active'));
+    f.classList.add('active');
+    state.currentHookCat = f.dataset.cat;
+    renderHooks();
+  });
+});
+
+async function generateHooks() {
+  showToast('در حال تولید قلاب‌های جدید...');
+  const prompt = `۱۰ قلاب قدرتمند فارسی برای ریلز اینستاگرام تولید کن.
+
+خروجی JSON:
+{"hooks":[{"text":"...","category":"curiosity/pain/promise/story/controversy","score":85-98}]}
+
+فقط JSON برگردان.`;
+  try {
+    const result = await callGemini(prompt);
+    const jsonMatch = result.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('پاسخ نامعتبر');
+    const data = JSON.parse(jsonMatch[0]);
+    data.hooks.forEach(h => HOOKS_LIBRARY.unshift({cat:h.category, text:h.text, score:h.score}));
+    renderHooks();
+    showToast(`${data.hooks.length} قلاب جدید اضافه شد`);
+  } catch(e) { showToast('خطا: ' + e.message, 'error'); }
+}
+
+async function generateSEO() {
+  const topic = document.getElementById('seoTopic').value.trim();
+  if (!topic) { showToast('موضوع را وارد کنید', 'error'); return; }
+  const niche = document.getElementById('seoNiche').value;
+  const count = document.getElementById('seoHashtags').value;
+  const prompt = `برای موضوع "${topic}" در حوزه "${niche}"، پکیج سئو اینستاگرام تولید کن:
+۱. کپشن SEO-محور (۰۰ کلمه)
+. ${count} هشتگ استراتژیک
+۳. Alt Text برای ۵ تصویر
+۴. ۱۰ کلمه کلیدی
+۵. عنوان جذاب
+با ایموجی و ساختار واضح.`;
+  await generateWithLoading('seoBtn', () => prompt, 'seoOutput');
+}
+
+function loadBrandDNA() {
+  const b = state.brand;
+  document.getElementById('brandName').value = b.name || '';
+  document.getElementById('brandSlogan').value = b.slogan || '';
+  document.getElementById('brandMission').value = b.mission || '';
+  document.getElementById('brandValues').value = b.values || '';
+  document.getElementById('brandKeywords').value = b.keywords || '';
+  document.getElementById('brandAudience').value = b.audience || '';
+  if (b.tone) {
+    const select = document.getElementById('brandTone');
+    for (let option of select.options) {
+      if (option.value === b.tone) { option.selected = true; break; }
+    }
+  }
+  if (b.colors) {
+    document.querySelectorAll('#colorPalette input').forEach((inp, i) => {
+      if (b.colors[i]) { inp.value = b.colors[i]; inp.parentElement.style.background = b.colors[i]; }
+    });
+  }
+}
+
+function saveBrandDNA() {
+  state.brand = {
+    name: document.getElementById('brandName').value,
+    slogan: document.getElementById('brandSlogan').value,
+    mission: document.getElementById('brandMission').value,
+    values: document.getElementById('brandValues').value,
+    tone: document.getElementById('brandTone').value,
+    keywords: document.getElementById('brandKeywords').value,
+    audience: document.getElementById('brandAudience').value,
+    colors: Array.from(document.querySelectorAll('#colorPalette input')).map(i => i.value)
+  };
+  localStorage.setItem('erfan_brand', JSON.stringify(state.brand));
+  showToast('Brand DNA ذخیره شد');
+}
+
+document.querySelectorAll('#colorPalette input').forEach(inp => {
+  inp.addEventListener('input', e => { e.target.parentElement.style.background = e.target.value; });
+});
+
+document.querySelectorAll('.repurpose-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const format = item.dataset.format;
+    if (state.selectedRepurposeFormats.has(format)) {
+      state.selectedRepurposeFormats.delete(format);
+      item.style.borderColor = 'var(--border)';
+      item.style.background = 'rgba(255,255,255,0.03)';
+    } else {
+      state.selectedRepurposeFormats.add(format);
+      item.style.borderColor = 'var(--accent)';
+      item.style.background = 'rgba(255,45,85,0.08)';
+    }
+  });
+});
+
+async function generateRepurpose() {
+  const content = document.getElementById('repurposeInput').value.trim();
+  if (!content) { showToast('محتوا را وارد کنید', 'error'); return; }
+  if (state.selectedRepurposeFormats.size === 0) { showToast('حداقل یک فرمت انتخاب کنید', 'error'); return; }
+  const formats = Array.from(state.selectedRepurposeFormats);
+  const formatNames = {twitter:'رشته توییت', linkedin:'پست لینکدین', blog:'مقاله بلاگ', newsletter:'خبرنامه ایمیلی', youtube:'اسکریپت یوتیوب', podcast:'اسکریپت پادکست', carousel:'پست اسلایدی', quote:'نقل قول‌های طلایی'};
+  const prompt = `محتوای زیر را به فرمت‌های درخواستی تبدیل کن:
+
+محتوای اصلی:
+"""
+${content}
+"""
+
+فرمت‌ها:
+${formats.map(f => `- ${formatNames[f]}`).join('\n')}
+
+برای هر فرمت، نسخه بهینه‌شده بنویس.`;
+  await generateWithLoading('repurposeBtn', () => prompt, 'repurposeOutput');
+}
+
+function initAnalyticsChart() {
+  const ctx = document.getElementById('contentTypeChart');
+  if (!ctx) return;
+  if (window.contentTypeChartInstance) window.contentTypeChartInstance.destroy();
+  window.contentTypeChartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['ریلز', 'استوری', 'پست اسلایدی', 'لایو', 'کاروسل'],
+      datasets: [{data: [45, 25, 15, 10, 5], backgroundColor: ['#ff2d55', '#a855f7', '#3b82f6', '#10b981', '#f59e0b'], borderWidth: 0}]
+    },
+    options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: 'bottom', labels: {color: '#a8a8b8', font: {family: 'Vazirmatn', size: 11}, padding: 15}}}, cutout: '65%'}
+  });
+}
+
+async function analyzePerformance() {
+  const prompt = `به عنوان متخصص آنالیز اینستاگرام، بر اساس این داده‌ها تحلیل ارائه بده:
+- فالوور: ۱۲,۸۰
+- نرخ تعامل: ۴.۲٪
+- دسترسی هفتگی: ۸۴,۳۲
+- لید این هفته: ۲۴
+- بهترین ساعت انتشار: ۲:۰۰
+- ۱ پست وایرال در ماه اخیر
+
+تحلیل شامل:
+۱. نقاط قوت
+۲. نقاط ضعف
+۳. ۵ پیشنهاد عملی
+۴. پیش‌بینی ۳۰ روزه
+۵. استراتژی پیشنهادی
+
+به فارسی بنویس.`;
+  await generateWithLoading('analyzeBtn', () => prompt, 'analyticsOutput');
+}
+
+function updateStatusPill(connected, modelName) {
+  const pill = document.getElementById('statusPill');
+  const statusText = document.getElementById('apiStatus');
+  pill.className = 'status-pill';
+  if (connected) {
+    pill.classList.add('connected');
+    statusText.textContent = 'متصل به ' + modelName;
+  } else {
+    pill.classList.add('error');
+    statusText.textContent = 'خطا در اتصال';
+  }
+}
+
+async function testAPI() {
+  const key = document.getElementById('apiKey').value.trim();
+  if (!key) { showToast('کلید را وارد کنید', 'error'); return; }
+  const btn = document.getElementById('testBtn');
+  const errorBox = document.getElementById('apiErrorBox');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> در حال تست...';
+  errorBox.style.display = 'none';
+  try {
+    state.apiKey = key;
+    state.model = document.getElementById('modelSelect').value;
+    const result = await callGemini('یک جمله کوتاه بگو: "اتصال موفق"');
+    state.apiConnected = true;
+    updateStatusPill(true, state.model);
+    showToast('اتصال موفق ✓');
+    document.getElementById('securityBanner').style.display = 'flex';
+  } catch(e) {
+    state.apiConnected = false;
+    updateStatusPill(false, state.model);
+    errorBox.style.display = 'block';
+    errorBox.innerHTML = `<div class="error-box"><i class="fas fa-exclamation-triangle"></i> ${e.message}</div>`;
+    showToast('خطا در اتصال', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = original;
+  }
+}
+
+function saveAPI() {
+  state.apiKey = document.getElementById('apiKey').value.trim();
+  state.model = document.getElementById('modelSelect').value;
+  localStorage.setItem('erfan_api_key', state.apiKey);
+  localStorage.setItem('erfan_model', state.model);
+  if (state.apiConnected) updateStatusPill(true, state.model);
+  showToast('تنظیمات ذخیره شد');
+}
+
+function exportData() {
+  const data = {customers: state.customers, events: state.events, brand: state.brand, exportedAt: new Date().toISOString()};
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `erfan-os-backup-${Date.now()}.json`;
+  a.click();
+  showToast('فایل پشتیبان دانلود شد');
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.customers) { state.customers = data.customers; localStorage.setItem('erfan_customers', JSON.stringify(state.customers)); }
+      if (data.events) { state.events = data.events; localStorage.setItem('erfan_events', JSON.stringify(state.events)); }
+      if (data.brand) { state.brand = data.brand; localStorage.setItem('erfan_brand', JSON.stringify(state.brand)); }
+      showToast('داده‌ها بازیابی شد');
+      renderCRM();
+      renderCalendar();
+    } catch(err) { showToast('فایل نامعتبر', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllData() { if(!confirm('همه داده‌ها پاک شوند؟')) return; localStorage.clear(); location.reload(); }
+
+function initGrowthChart() {
+  const ctx = document.getElementById('growthChart');
+  if (!ctx) return;
+  if (window.growthChartInstance) window.growthChartInstance.destroy();
+  window.growthChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['هفته ۱', 'هفته ۲', 'هفته ۳', 'هفته ۴'],
+      datasets: [
+        {label: 'فالوور', data: [10200, 10800, 11500, 12480], borderColor: '#ff2d55', backgroundColor: 'rgba(255,45,85,0.1)', fill: true, tension: 0.4, borderWidth: 2},
+        {label: 'تعامل', data: [3200, 3800, 4100, 4800], borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.1)', fill: true, tension: 0.4, borderWidth: 2}
+      ]
+    },
+    options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {labels: {color: '#a8a8b8', font: {family: 'Vazirmatn', size: 11}}}}, scales: {x: {ticks: {color: '#6b6b7b', font: {family: 'Vazirmatn'}}, grid: {color: 'rgba(255,255,255,0.04)'}}, y: {ticks: {color: '#6b6b7b', font: {family: 'Vazirmatn'}}, grid: {color: 'rgba(255,255,255,0.04)'}}}}
+  });
+}
+
+function copyOutput(id) { const text = document.querySelector(`#${id} pre`)?.textContent; if(text) { navigator.clipboard.writeText(text); showToast('کپی شد'); } }
+function addActivity(title, desc) { state.activities.unshift({title, desc, time: new Date().toISOString()}); if(state.activities.length > 20) state.activities = state.activities.slice(0, 20); localStorage.setItem('erfan_activities', JSON.stringify(state.activities)); }
+
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    // Show API key if already saved
+    if (state.apiKey) {
+      document.getElementById('apiKey').value = state.apiKey;
+    }
+    
+    const modelSelect = document.getElementById('modelSelect');
+    for (let option of modelSelect.options) {
+      if (option.value === state.model) { option.selected = true; break; }
+    }
+    
+    initGrowthChart();
+    renderCRM();
+    renderCalendar();
+    renderHooks();
+    loadBrandDNA();
+    
+    // Check if API key exists
+    if (state.apiKey) {
+      document.getElementById('statusPill').className = 'status-pill warning';
+      document.getElementById('apiStatus').textContent = 'کلید ذخیره شده - تست کنید';
+      document.getElementById('securityBanner').style.display = 'flex';
+    }
+  } catch(e) { console.error('Init error:', e); }
+});
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if(e.target === m) m.classList.remove('show'); });
+});
+</script>
+</body>
+</html>
