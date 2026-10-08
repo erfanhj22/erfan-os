@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ERFAN OS Auto v8.0</title>
+<title>ERFAN OS Auto v9.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -183,7 +183,7 @@ body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,trans
 <aside class="sidebar" id="sidebar">
   <div class="logo">
     <div class="logo-icon">ع</div>
-    <div class="logo-text"><h1>ERFAN OS</h1><p>Auto · نسخه ۸.۰</p></div>
+    <div class="logo-text"><h1>ERFAN OS</h1><p>Auto · نسخه ۹.۰</p></div>
   </div>
   <div class="nav-section">
     <div class="nav-title">اتوماتیک</div>
@@ -253,7 +253,7 @@ body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,trans
           <select class="form-select" id="autoCount">
             <option value="4">۴ اسلاید</option>
             <option value="7">۷ اسلاید</option>
-            <option value="10">۱۰ اسلاید</option>
+            <option value="10">۰ اسلاید</option>
           </select>
         </div>
       </div>
@@ -297,17 +297,17 @@ body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,trans
       <div class="kpi-grid">
         <div class="kpi-card" style="--card-accent:var(--grad1)">
           <div class="kpi-header"><div class="kpi-icon"><i class="fas fa-clock"></i></div></div>
-          <div class="kpi-value" id="bestTime">۲:۰۰</div>
+          <div class="kpi-value">۲۱:۰۰</div>
           <div class="kpi-label">بهترین ساعت امروز</div>
         </div>
         <div class="kpi-card" style="--card-accent:var(--grad2)">
           <div class="kpi-header"><div class="kpi-icon"><i class="fas fa-calendar-day"></i></div></div>
-          <div class="kpi-value" id="bestDay">پنجشنبه</div>
+          <div class="kpi-value">پنجشنبه</div>
           <div class="kpi-label">بهترین روز هفته</div>
         </div>
         <div class="kpi-card" style="--card-accent:linear-gradient(135deg,#3b82f6,#06b6d4)">
           <div class="kpi-header"><div class="kpi-icon"><i class="fas fa-fire"></i></div></div>
-          <div class="kpi-value" id="viralScore">۸۷٪</div>
+          <div class="kpi-value">۸۷٪</div>
           <div class="kpi-label">امتیاز وایرال</div>
         </div>
       </div>
@@ -401,7 +401,7 @@ body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,trans
         <div class="crm-filter active" data-filter="all">همه (<span id="countAll">0</span>)</div>
         <div class="crm-filter" data-filter="hot">🔥 داغ (<span id="countHot">0</span>)</div>
         <div class="crm-filter" data-filter="warm">🌡️ گرم (<span id="countWarm">0</span>)</div>
-        <div class="crm-filter" data-filter="cold">❄️ سرد (<span id="countCold">0</span>)</div>
+        <div class="crm-filter" data-filter="cold">️ سرد (<span id="countCold">0</span>)</div>
       </div>
       <div class="crm-list" id="crmList"></div>
     </div>
@@ -410,7 +410,7 @@ body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,trans
   <div class="page" id="page-calendar">
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><div class="card-title-icon"><i class="fas fa-calendar-alt"></i></div><div><h3>تقویم محتوا</h3><p>برنامه‌ریزی ۳ روزه</p></div></div></div>
+        <div class="card-title"><div class="card-title-icon"><i class="fas fa-calendar-alt"></i></div><div><h3>تقویم محتوا</h3><p>برنامه‌ریزی ۳۰ روزه</p></div></div></div>
         <button class="btn btn-primary" onclick="generate30DayPlan()" style="padding:8px 14px;font-size:12px"><i class="fas fa-magic"></i> برنامه ۰ روزه</button>
       </div>
       <div class="calendar-grid" id="calendarGrid"></div>
@@ -533,7 +533,6 @@ body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,trans
 
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i><div class="toast-msg" id="toastMsg">عملیات موفق</div></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 const VALID_MODELS=['gemini-3.8-flash','gemini-3.8-pro'];
 const DEFAULT_MODEL='gemini-3.8-flash';
@@ -553,7 +552,7 @@ async function autoGenerate(){const btn=document.getElementById('autoBtn');const
 
 function copyAutoContent(){const text=document.querySelector('#autoOutput pre')?.textContent;if(text){navigator.clipboard.writeText(text);showToast('کپی شد')}}
 
-async function autoSchedule(){const output=document.getElementById('scheduleOutput');output.className='output-box';output.innerHTML='<div class="loading"><span class="spinner"></span> ربات در حال برنامه‌ریزی...</div>';try{const prompt='یک برنامه محتوایی  روزه برای اینستاگرام فارسی بساز. برای هر روز: نوع محتوا (ریلز/استوری/پست)، موضوع، و بهترین ساعت انتشار.\n\nخروجی JSON:\n{"days":[{"day":"شنبه","type":"...","topic":"...","time":"..."}]}\n\nفقط JSON.';const result=await callGemini(prompt);const jsonMatch=result.match(/\{[\s\S]*\}/);if(!jsonMatch)throw new Error('پاسخ نامعتبر');const data=JSON.parse(jsonMatch[0]);let html='<h4 style="margin-bottom:12px;color:var(--accent)">📅 برنامه هفتگی:</h4>';data.days.forEach(d=>{html+=`<div class="activity-item"><div class="activity-icon" style="background:rgba(168,85,247,0.15);color:var(--purple)"><i class="fas fa-calendar-day"></i></div><div class="activity-content"><h5>${d.day} · ${d.type}</h5><p>${d.topic}</p></div><div class="activity-time">${d.time}</div></div>`});output.innerHTML=`<button class="copy-btn" onclick="copySchedule()"><i class="fas fa-copy"></i> کپی</button><pre>${html}</pre>`;showToast('برنامه هفتگی ساخته شد ✓')}catch(e){output.className='output-box';output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;showToast('خطا: '+e.message,'error')}}
+async function autoSchedule(){const output=document.getElementById('scheduleOutput');output.className='output-box';output.innerHTML='<div class="loading"><span class="spinner"></span> ربات در حال برنامه‌ریزی...</div>';try{const prompt='یک برنامه محتوایی 7 روزه برای اینستاگرام فارسی بساز. برای هر روز: نوع محتوا (ریلز/استوری/پست)، موضوع، و بهترین ساعت انتشار.\n\nخروجی JSON:\n{"days":[{"day":"شنبه","type":"...","topic":"...","time":"..."}]}\n\nفقط JSON.';const result=await callGemini(prompt);const jsonMatch=result.match(/\{[\s\S]*\}/);if(!jsonMatch)throw new Error('پاسخ نامعتبر');const data=JSON.parse(jsonMatch[0]);let html='<h4 style="margin-bottom:12px;color:var(--accent)">📅 برنامه هفتگی:</h4>';data.days.forEach(d=>{html+=`<div class="activity-item"><div class="activity-icon" style="background:rgba(168,85,247,0.15);color:var(--purple)"><i class="fas fa-calendar-day"></i></div><div class="activity-content"><h5>${d.day} · ${d.type}</h5><p>${d.topic}</p></div><div class="activity-time">${d.time}</div></div>`});output.innerHTML=`<button class="copy-btn" onclick="copySchedule()"><i class="fas fa-copy"></i> کپی</button><pre>${html}</pre>`;showToast('برنامه هفتگی ساخته شد ✓')}catch(e){output.className='output-box';output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;showToast('خطا: '+e.message,'error')}}
 
 function copySchedule(){const text=document.querySelector('#scheduleOutput pre')?.textContent;if(text){navigator.clipboard.writeText(text);showToast('کپی شد')}}
 
@@ -563,7 +562,7 @@ async function generateStory(){const topic=document.getElementById('storyTopic')
 
 function copyStoryText(){const text=document.querySelector('#storyOutput pre')?.textContent;if(text){navigator.clipboard.writeText(text);showToast('کپی شد')}}
 
-async function generateReels(){const idea=document.getElementById('reelsIdea').value.trim();if(!idea){showToast('ایده را وارد کنید','error');return}const btn=document.getElementById('reelsBtn');const output=document.getElementById('reelsOutput');const originalHTML=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spinner"></span> در حال تولید...';output.className='output-box';output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';try{const prompt=`برای ایده "${idea}"، سناریوی کامل ریلز بنویس:\n۱. قلاب (۳ ثانیه)\n۲. مقدمه (۵ ثانیه)\n۳. بدنه اصلی\n۴. CTA (۵ ثانیه)\n۵. کپشن SEO با ۱۰ هشتگ\n\nبه فارسی بنویس.`;const result=await callGemini(prompt);output.innerHTML=`<button class="copy-btn" onclick="copyOutput('reelsOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;showToast('سناریو تولید شد ✓')}catch(e){output.className='output-box';output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;showToast('خطا: '+e.message,'error')}finally{btn.disabled=false;btn.innerHTML=originalHTML}}
+async function generateReels(){const idea=document.getElementById('reelsIdea').value.trim();if(!idea){showToast('ایده را وارد کنید','error');return}const btn=document.getElementById('reelsBtn');const output=document.getElementById('reelsOutput');const originalHTML=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spinner"></span> در حال تولید...';output.className='output-box';output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';try{const prompt=`برای ایده "${idea}"، سناریوی کامل ریلز بنویس:\n۱. قلاب (۳ ثانیه)\n۲. مقدمه ( ثانیه)\n۳. بدنه اصلی\n۴. CTA (۵ ثانیه)\n۵. کپشن SEO با ۱۰ هشتگ\n\nبه فارسی بنویس.`;const result=await callGemini(prompt);output.innerHTML=`<button class="copy-btn" onclick="copyOutput('reelsOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;showToast('سناریو تولید شد ✓')}catch(e){output.className='output-box';output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;showToast('خطا: '+e.message,'error')}finally{btn.disabled=false;btn.innerHTML=originalHTML}}
 
 async function generateDirect(){const name=document.getElementById('directName').value.trim();const problem=document.getElementById('directProblem').value.trim();if(!name||!problem){showToast('نام و مشکل را وارد کنید','error');return}const btn=document.getElementById('directBtn');const output=document.getElementById('directOutput');const originalHTML=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spinner"></span> در حال تولید...';output.className='output-box';output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';try{const prompt=`برای مشتری "${name}" با مشکل "${problem}":\n۱. پیام اولیه دایرکت (۱۵۰ کلمه)\n۲. سناریوی ویس ۴۵ ثانیه‌ای\n۳. ۳ پاسخ احتمالی و جواب\n\nبه فارسی محاوره‌ای بنویس.`;const result=await callGemini(prompt);output.innerHTML=`<button class="copy-btn" onclick="copyOutput('directOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;showToast('سناریو تولید شد ✓')}catch(e){output.className='output-box';output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;showToast('خطا: '+e.message,'error')}finally{btn.disabled=false;btn.innerHTML=originalHTML}}
 
@@ -572,21 +571,21 @@ function closeCRMModal(){document.getElementById('crmModal').classList.remove('s
 
 function saveCRM(){const customer={id:Date.now(),name:document.getElementById('crmName').value.trim(),contact:document.getElementById('crmContact').value.trim(),need:document.getElementById('crmNeed').value.trim(),status:document.getElementById('crmStatus').value,value:document.getElementById('crmValue').value||0,createdAt:new Date().toISOString()};if(!customer.name){showToast('نام را وارد کنید','error');return}state.customers.unshift(customer);localStorage.setItem('erfan_customers',JSON.stringify(state.customers));closeCRMModal();renderCRM();showToast('مشتری اضافه شد');['crmName','crmContact','crmNeed','crmValue'].forEach(id=>document.getElementById(id).value='')}
 
-function renderCRM(){const list=document.getElementById('crmList');const filtered=state.currentFilter==='all'?state.customers:state.customers.filter(c=>c.status===state.currentFilter);document.getElementById('countAll').textContent=state.customers.length;document.getElementById('countHot').textContent=state.customers.filter(c=>c.status==='hot').length;document.getElementById('countWarm').textContent=state.customers.filter(c=>c.status==='warm').length;document.getElementById('countCold').textContent=state.customers.filter(c=>c.status==='cold').length;if(filtered.length===0){list.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3)"><i class="fas fa-users" style="font-size:40px;margin-bottom:12px;opacity:0.3"></i><p>هنوز مشتری اضافه نشده</p></div>`;return}const colors={hot:'var(--grad1)',warm:'linear-gradient(135deg,#f59e0b,#f97316)',cold:'linear-gradient(135deg,#3b82f6,#06b6d4)'};const tags={hot:'<span class="crm-tag tag-hot">🔥 داغ</span>',warm:'<span class="crm-tag tag-warm">️ گرم</span>',cold:'<span class="crm-tag tag-cold">❄️ سرد</span>'};list.innerHTML=filtered.map(c=>`<div class="crm-item"><div class="crm-avatar" style="background:${colors[c.status]}">${c.name[0]}</div><div class="crm-info"><h4>${c.name}</h4><p>${c.contact||'بدون تماس'} · ${c.need||'بدون نیاز'}</p></div><div class="crm-meta">${tags[c.status]}</div></div>`).join('')}
+function renderCRM(){const list=document.getElementById('crmList');const filtered=state.currentFilter==='all'?state.customers:state.customers.filter(c=>c.status===state.currentFilter);document.getElementById('countAll').textContent=state.customers.length;document.getElementById('countHot').textContent=state.customers.filter(c=>c.status==='hot').length;document.getElementById('countWarm').textContent=state.customers.filter(c=>c.status==='warm').length;document.getElementById('countCold').textContent=state.customers.filter(c=>c.status==='cold').length;if(filtered.length===0){list.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3)"><i class="fas fa-users" style="font-size:40px;margin-bottom:12px;opacity:0.3"></i><p>هنوز مشتری اضافه نشده</p></div>`;return}const colors={hot:'var(--grad1)',warm:'linear-gradient(135deg,#f59e0b,#f97316)',cold:'linear-gradient(135deg,#3b82f6,#06b6d4)'};const tags={hot:'<span class="crm-tag tag-hot">🔥 داغ</span>',warm:'<span class="crm-tag tag-warm">🌡️ گرم</span>',cold:'<span class="crm-tag tag-cold">️ سرد</span>'};list.innerHTML=filtered.map(c=>`<div class="crm-item"><div class="crm-avatar" style="background:${colors[c.status]}">${c.name[0]}</div><div class="crm-info"><h4>${c.name}</h4><p>${c.contact||'بدون تماس'} · ${c.need||'بدون نیاز'}</p></div><div class="crm-meta">${tags[c.status]}</div></div>`).join('')}
 
 document.querySelectorAll('.crm-filter').forEach(f=>{f.addEventListener('click',()=>{document.querySelectorAll('.crm-filter').forEach(x=>x.classList.remove('active'));f.classList.add('active');state.currentFilter=f.dataset.filter;renderCRM()})});
 
 function renderCalendar(){const grid=document.getElementById('calendarGrid');const date=state.currentMonth;const monthNames=['ژانویه','فوریه','مارس','آوریل','مه','ژوئن','ژوئیه','اوت','سپتامبر','اکتبر','نوامبر','دسامبر'];const dayNames=['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه'];let html=dayNames.map(d=>`<div class="cal-day-name">${d}</div>`).join('');const firstDay=new Date(date.getFullYear(),date.getMonth(),1);const lastDay=new Date(date.getFullYear(),date.getMonth()+1,0);const startOffset=(firstDay.getDay()+1)%7;for(let i=0;i<startOffset;i++)html+='<div></div>';const today=new Date();for(let d=1;d<=lastDay.getDate();d++){const dateStr=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;const events=state.events.filter(e=>e.date===dateStr);const isToday=today.getDate()===d&&today.getMonth()===date.getMonth()&&today.getFullYear()===date.getFullYear();html+=`<div class="cal-day ${isToday?'today':''} ${events.length?'has-content':''}"><div class="cal-day-num">${d}</div>${events.map(e=>`<div class="cal-day-event">${e.type}: ${e.topic.substring(0,20)}</div>`).join('')}</div>`}grid.innerHTML=html}
 
-async function generate30DayPlan(){showToast('در حال تولید برنامه...');try{const prompt='یک برنامه محتوایی ۳۰ روزه برای اینستاگرام فارسی بساز.\n\nخروجی JSON:\n{"days":[{"date":"YYYY-MM-DD","type":"ریلز/استوری/پست","topic":"..."}]}\n\nفقط JSON.';const result=await callGemini(prompt);const jsonMatch=result.match(/\{[\s\S]*\}/);if(!jsonMatch)throw new Error('پاسخ نامعتبر');const data=JSON.parse(jsonMatch[0]);data.days.forEach(d=>state.events.push({id:Date.now()+Math.random(),...d}));localStorage.setItem('erfan_events',JSON.stringify(state.events));renderCalendar();showToast('برنامه ۳۰ روزه ساخته شد ✓')}catch(e){showToast('خطا: '+e.message,'error')}}
+async function generate30DayPlan(){showToast('در حال تولید برنامه...');try{const prompt='یک برنامه محتوایی ۳۰ روزه برای اینستاگرام فارسی بساز.\n\nخروجی JSON:\n{"days":[{"date":"YYYY-MM-DD","type":"ریلز/استوری/پست","topic":"..."}]}\n\nفقط JSON.';const result=await callGemini(prompt);const jsonMatch=result.match(/\{[\s\S]*\}/);if(!jsonMatch)throw new Error('پاسخ نامعتبر');const data=JSON.parse(jsonMatch[0]);data.days.forEach(d=>state.events.push({id:Date.now()+Math.random(),...d}));localStorage.setItem('erfan_events',JSON.stringify(state.events));renderCalendar();showToast('برنامه ۳ روزه ساخته شد ✓')}catch(e){showToast('خطا: '+e.message,'error')}}
 
-const HOOKS_LIBRARY=[{cat:'curiosity',text:'این اشتباه ۹٪ پیج‌ها رو نابود می‌کنه',score:95},{cat:'curiosity',text:'راز پشت پیج‌های ۱۰۰کا که هیچکس نمی‌گه',score:92},{cat:'pain',text:'اگه ویو ریلزت افت کرده، این ویدیو رو ببین',score:88},{cat:'pain',text:'چرا با وجود فالوور زیاد، فروش نداری؟',score:90},{cat:'promise',text:'۳ ترفند که پیجت رو در ۷ روز منفجر می‌کنه',score:94},{cat:'promise',text:'فرمولی که ۱۰ پیج رو به ۱۰۰کا رسوند',score:96},{cat:'story',text:'۶ ماه پیش ۵۰۰ فالوور داشتم، الان...',score:85},{cat:'story',text:'داستان واقعی: چطور از صفر به ماهی ۵۰ میلیون رسیدم',score:91},{cat:'controversy',text:'الگوریتم اینستاگرام دروغ می‌گه!',score:93},{cat:'controversy',text:'همه چیزایی که درباره ریلز بهت گفتن غلطه',score:89}];
+const HOOKS_LIBRARY=[{cat:'curiosity',text:'این اشتباه ۹۰٪ پیج‌ها رو نابود می‌کنه',score:95},{cat:'curiosity',text:'راز پشت پیج‌های ۱۰۰کا که هیچکس نمی‌گه',score:92},{cat:'pain',text:'اگه ویو ریلزت افت کرده، این ویدیو رو ببین',score:88},{cat:'pain',text:'چرا با وجود فالوور زیاد، فروش نداری؟',score:90},{cat:'promise',text:'۳ ترفند که پیجت رو در ۷ روز منفجر می‌کنه',score:94},{cat:'promise',text:'فرمولی که ۱۰ پیج رو به ۱۰کا رسوند',score:96},{cat:'story',text:'۶ ماه پیش ۰۰ فالوور داشتم، الان...',score:85},{cat:'story',text:'داستان واقعی: چطور از صفر به ماهی ۵۰ میلیون رسیدم',score:91},{cat:'controversy',text:'الگوریتم اینستاگرام دروغ می‌گه!',score:93},{cat:'controversy',text:'همه چیزایی که درباره ریلز بهت گفتن غلطه',score:89}];
 
 function renderHooks(){const grid=document.getElementById('hookGrid');const filtered=state.currentHookCat==='all'?HOOKS_LIBRARY:HOOKS_LIBRARY.filter(h=>h.cat===state.currentHookCat);const catNames={curiosity:'کنجکاوی',pain:'درد',promise:'قول',story:'داستان',controversy:'جنجالی'};grid.innerHTML=filtered.map(h=>`<div class="hook-card" onclick="copyHook(this,'${h.text.replace(/'/g,"\\'")}')"><span class="hook-category">${catNames[h.cat]}</span><div class="hook-text">${h.text}</div><div class="hook-score"><span>قدرت: ${h.score}/100</span><div class="score-bar"><div class="score-fill" style="width:${h.score}%"></div></div></div></div>`).join('')}
 
 function copyHook(el,text){navigator.clipboard.writeText(text);showToast('قلاب کپی شد')}
 
-async function generateSEO(){const topic=document.getElementById('seoTopic').value.trim();if(!topic){showToast('موضوع را وارد کنید','error');return}const btn=document.getElementById('seoBtn');const output=document.getElementById('seoOutput');const originalHTML=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spinner"></span> در حال تولید...';output.className='output-box';output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';try{const prompt=`برای موضوع "${topic}"، پکیج سئو اینستاگرام تولید کن:\n۱. کپشن SEO (۲۰۰ کلمه)\n۲. ۲ هشتگ استراتژیک\n۳. ۱۰ کلمه کلیدی\n۴. عنوان جذاب`;const result=await callGemini(prompt);output.innerHTML=`<button class="copy-btn" onclick="copyOutput('seoOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;showToast('پکیج سئو تولید شد ✓')}catch(e){output.className='output-box';output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;showToast('خطا: '+e.message,'error')}finally{btn.disabled=false;btn.innerHTML=originalHTML}}
+async function generateSEO(){const topic=document.getElementById('seoTopic').value.trim();if(!topic){showToast('موضوع را وارد کنید','error');return}const btn=document.getElementById('seoBtn');const output=document.getElementById('seoOutput');const originalHTML=btn.innerHTML;btn.disabled=true;btn.innerHTML='<span class="spinner"></span> در حال تولید...';output.className='output-box';output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';try{const prompt=`برای موضوع "${topic}"، پکیج سئو اینستاگرام تولید کن:\n۱. کپشن SEO (۲۰۰ کلمه)\n۲. ۲۰ هشتگ استراتژیک\n۳. ۱۰ کلمه کلیدی\n۴. عنوان جذاب`;const result=await callGemini(prompt);output.innerHTML=`<button class="copy-btn" onclick="copyOutput('seoOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;showToast('پکیج سئو تولید شد ✓')}catch(e){output.className='output-box';output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;showToast('خطا: '+e.message,'error')}finally{btn.disabled=false;btn.innerHTML=originalHTML}}
 
 function saveBrandDNA(){state.brand={name:document.getElementById('brandName').value,slogan:document.getElementById('brandSlogan').value,tone:document.getElementById('brandTone').value,colors:Array.from(document.querySelectorAll('#colorPalette input')).map(i=>i.value)};localStorage.setItem('erfan_brand',JSON.stringify(state.brand));showToast('Brand DNA ذخیره شد')}
 
