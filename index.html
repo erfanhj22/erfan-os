@@ -3,263 +3,432 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ERFAN OS v10.0</title>
+<title>ERFAN OS v11.0 - Auto Daily</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif}
-:root{--bg:#0a0a0f;--bg2:#12121a;--border:rgba(255,255,255,0.08);--text:#fff;--text2:#a8a8b8;--text3:#6b6b7b;--accent:#ff2d55;--purple:#a855f7;--green:#10b981;--grad1:linear-gradient(135deg,#ff2d55,#ff6b9d);--grad2:linear-gradient(135deg,#a855f7,#6366f1)}
+:root{--bg:#0a0a0f;--bg2:#12121a;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#fff;--text2:#a8a8b8;--text3:#6b6b7b;--accent:#ff2d55;--purple:#a855f7;--green:#10b981;--grad1:linear-gradient(135deg,#ff2d55,#ff6b9d);--grad2:linear-gradient(135deg,#a855f7,#6366f1)}
 html,body{background:var(--bg);color:var(--text);min-height:100vh}
 body{background:radial-gradient(circle at 10% 20%,rgba(168,85,247,0.08) 0%,transparent 40%),radial-gradient(circle at 90% 80%,rgba(255,45,85,0.08) 0%,transparent 40%),var(--bg)}
 .app{display:flex;min-height:100vh}
 .sidebar{width:280px;background:rgba(18,18,26,0.9);backdrop-filter:blur(20px);border-left:1px solid var(--border);padding:20px 14px;position:fixed;right:0;top:0;bottom:0;overflow-y:auto;z-index:100}
-.logo{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:24px;background:linear-gradient(135deg,rgba(255,45,85,0.1),rgba(168,85,247,0.1));border:1px solid rgba(255,255,255,0.15);border-radius:16px}
-.logo-icon{width:44px;height:44px;background:var(--grad1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.logo{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:24px;background:linear-gradient(135deg,rgba(255,45,85,0.1),rgba(168,85,247,0.1));border:1px solid var(--border2);border-radius:16px}
+.logo-icon{width:44px;height:44px;background:var(--grad1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;box-shadow:0 0 40px rgba(255,45,85,0.3)}
 .logo-text h1{font-size:15px;font-weight:800}
 .logo-text p{font-size:10px;color:var(--text3);margin-top:2px}
 .nav-section{margin-bottom:20px}
 .nav-title{font-size:10px;font-weight:700;color:var(--text3);padding:0 14px;margin-bottom:8px;letter-spacing:1px}
-.nav-item{display:flex;align-items:center;gap:12px;padding:11px 14px;margin-bottom:3px;border-radius:10px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:500;transition:all .2s}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 14px;margin-bottom:3px;border-radius:10px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:500;transition:all .2s;position:relative}
 .nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text)}
 .nav-item.active{background:linear-gradient(135deg,rgba(255,45,85,0.15),rgba(168,85,247,0.1));color:var(--text);border:1px solid rgba(255,45,85,0.3)}
+.nav-item.active::before{content:'';position:absolute;right:-14px;top:50%;transform:translateY(-50%);width:3px;height:24px;background:var(--grad1);border-radius:3px}
 .nav-item i{width:18px;font-size:15px}
 .nav-item .badge{margin-right:auto;background:var(--accent);color:white;font-size:9px;padding:2px 6px;border-radius:6px;font-weight:700}
 .user-card{margin-top:20px;padding:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:10px}
 .user-avatar{width:36px;height:36px;border-radius:50%;background:var(--grad2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
-.user-info{flex:1}
+.user-info{flex:1;overflow:hidden}
 .user-info h4{font-size:12px;font-weight:600}
 .user-info p{font-size:10px;color:var(--text3)}
-.main{flex:1;margin-right:280px;padding:24px 28px}
+.main{flex:1;margin-right:280px;padding:24px 28px;min-height:100vh}
 .topbar{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding:16px 20px;background:rgba(18,18,26,0.6);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px}
 .page-title{flex:1}
 .page-title h2{font-size:20px;font-weight:800;margin-bottom:3px}
 .page-title p{font-size:12px;color:var(--text3)}
-.topbar-actions{display:flex;gap:10px}
-.status-pill{display:flex;align-items:center;gap:6px;padding:7px 12px;background:rgba(107,107,123,0.1);border:1px solid rgba(107,107,123,0.3);border-radius:20px;font-size:11px;color:var(--text3);font-weight:600}
+.topbar-actions{display:flex;gap:10px;align-items:center}
+.status-pill{display:flex;align-items:center;gap:6px;padding:7px 12px;background:rgba(107,107,123,0.1);border:1px solid rgba(107,107,123,0.3);border-radius:20px;font-size:11px;color:var(--text3);font-weight:600;white-space:nowrap}
 .status-pill.connected{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:var(--green)}
 .status-pill.error{background:rgba(255,45,85,0.1);border-color:rgba(255,45,85,0.3);color:var(--accent)}
+.status-pill.warning{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:#f59e0b}
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--text3)}
 .status-pill.connected .status-dot{background:var(--green);animation:pulse 2s infinite}
+.status-pill.warning .status-dot{background:#f59e0b;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.icon-btn{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.icon-btn{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:14px}
 .icon-btn:hover{background:rgba(255,255,255,0.08);color:var(--text)}
 .page{display:none}
 .page.active{display:block}
 .card{background:rgba(18,18,26,0.6);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:20px}
-.card-header{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.card-title{display:flex;align-items:center;gap:10px}
 .card-title-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,45,85,0.1);color:var(--accent);font-size:15px}
 .card-title h3{font-size:15px;font-weight:700}
 .card-title p{font-size:11px;color:var(--text3);margin-top:2px}
 .form-group{margin-bottom:16px}
 .form-label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px}
-.form-input,.form-textarea,.form-select{width:100%;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-family:inherit}
-.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,0.05)}
-.form-textarea{resize:vertical;min-height:90px}
+.form-input,.form-textarea,.form-select{width:100%;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;transition:all .2s;font-family:inherit}
+.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,0.05);box-shadow:0 0 0 3px rgba(255,45,85,0.1)}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6}
 .form-select{cursor:pointer}
-.form-select option{background:var(--bg2);color:var(--text)}
+.form-select option{background:var(--bg2);color:var(--text);padding:8px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit}
-.btn-primary{background:var(--grad1);color:white}
-.btn-primary:hover{opacity:0.9}
-.btn-primary:disabled{opacity:0.6;cursor:not-allowed}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:inherit;white-space:nowrap}
+.btn-primary{background:var(--grad1);color:white;box-shadow:0 4px 14px rgba(255,45,85,0.3)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,45,85,0.4)}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none}
 .btn-secondary{background:rgba(255,255,255,0.05);color:var(--text);border:1px solid var(--border)}
 .btn-secondary:hover{background:rgba(255,255,255,0.08)}
+.btn-success{background:linear-gradient(135deg,#10b981,#06b6d4);color:white}
 .btn-block{width:100%}
-.output-box{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:14px;min-height:80px}
-.output-box.empty{display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px}
-.output-box pre{white-space:pre-wrap;font-size:13px;line-height:1.8;color:var(--text)}
-.copy-btn{position:absolute;top:10px;left:10px;background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text2);padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer}
+.btn-lg{padding:16px 24px;font-size:15px}
+.output-box{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:14px;min-height:80px;position:relative}
+.output-box.empty{display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;min-height:100px}
+.output-box pre{white-space:pre-wrap;word-wrap:break-word;font-size:13px;line-height:1.8;color:var(--text);font-family:'Vazirmatn',sans-serif;margin:0}
+.copy-btn{position:absolute;top:10px;left:10px;background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text2);padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:inherit}
+.copy-btn:hover{background:rgba(255,255,255,0.12);color:var(--text)}
 .slides-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
-.slide-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer}
-.slide-card:hover{border-color:var(--accent)}
+.slide-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all .2s}
+.slide-card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .slide-card.active{border-color:var(--accent);background:rgba(255,45,85,0.05)}
-.slide-num{width:28px;height:28px;border-radius:8px;background:var(--grad1);color:white;font-size:12px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;justify-content:center}
+.slide-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--grad1);color:white;font-size:12px;font-weight:800;margin-bottom:10px}
 .slide-type{font-size:11px;color:var(--accent);font-weight:700;margin-bottom:6px}
-.slide-title{font-size:13px;font-weight:700;margin-bottom:8px}
+.slide-title{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5}
 .slide-body{font-size:11px;color:var(--text2);line-height:1.7}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px}
-.kpi-card{background:rgba(18,18,26,0.6);border:1px solid var(--border);border-radius:16px;padding:20px}
+.kpi-card{background:rgba(18,18,26,0.6);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:all .3s}
+.kpi-card:hover{transform:translateY(-2px);border-color:var(--border2)}
+.kpi-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:var(--card-accent,var(--grad1));opacity:0.08;border-radius:50%;filter:blur(40px)}
 .kpi-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.kpi-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:white;background:var(--grad1)}
+.kpi-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:white;background:var(--card-accent,var(--grad1))}
+.kpi-trend{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:4px 8px;border-radius:8px;color:var(--green);background:rgba(16,185,129,0.1)}
 .kpi-value{font-size:28px;font-weight:800;margin-bottom:4px}
 .kpi-label{font-size:12px;color:var(--text3)}
+.auto-indicator{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:12px;font-size:10px;color:var(--green);font-weight:600}
+.auto-indicator::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.day-schedule{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:16px}
+.day-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;transition:all .2s}
+.day-card.today{border-color:var(--accent);background:rgba(255,45,85,0.05)}
+.day-card.generated{border-color:var(--green);background:rgba(16,185,129,0.05)}
+.day-name{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.day-topic{font-size:11px;color:var(--text2);line-height:1.5}
+.day-status{font-size:10px;margin-top:8px;padding:4px 8px;border-radius:6px;display:inline-block}
+.day-status.done{background:rgba(16,185,129,0.15);color:var(--green)}
+.day-status.pending{background:rgba(107,107,123,0.15);color:var(--text3)}
 .loading{display:flex;align-items:center;gap:10px;color:var(--text2);font-size:12px;padding:10px}
-.spinner{width:16px;height:16px;border:2px solid rgba(255,45,85,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,45,85,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
-.toast{position:fixed;bottom:24px;right:24px;background:rgba(18,18,26,0.95);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:10px;z-index:10000;transform:translateY(100px);opacity:0;transition:all .3s}
+.toast{position:fixed;bottom:24px;right:24px;background:rgba(18,18,26,0.95);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5);z-index:10000;transform:translateY(100px);opacity:0;transition:all .3s ease;max-width:320px}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.success{border-color:rgba(16,185,129,0.4)}
 .toast.error{border-color:rgba(255,45,85,0.4)}
-.toast i{font-size:18px}
+.toast i{font-size:18px;flex-shrink:0}
 .toast.success i{color:var(--green)}
 .toast.error i{color:var(--accent)}
+.toast-msg{font-size:12px;font-weight:600}
 .error-box{background:rgba(255,45,85,0.1);border:1px solid rgba(255,45,85,0.3);border-radius:10px;padding:12px 16px;margin-top:14px;color:var(--accent);font-size:12px}
+.security-banner{background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(249,115,22,0.1));border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;color:#f59e0b;font-size:13px}
+.security-banner i{font-size:20px}
+@media(max-width:1024px){.slides-grid{grid-template-columns:1fr 1fr}.day-schedule{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:768px){.sidebar{transform:translateX(100%)}.sidebar.open{transform:translateX(0)}.main{margin-right:0}.slides-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.kpi-grid{grid-template-columns:1fr 1fr}.topbar{flex-wrap:wrap}.day-schedule{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="app">
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
   <div class="logo">
     <div class="logo-icon">ع</div>
-    <div class="logo-text"><h1>ERFAN OS</h1><p>نسخه ۱۰.۰</p></div>
+    <div class="logo-text"><h1>ERFAN OS</h1><p>Auto · نسخه ۱۱.۰</p></div>
   </div>
   <div class="nav-section">
-    <div class="nav-title">اصلی</div>
-    <div class="nav-item active" data-page="dashboard"><i class="fas fa-chart-line"></i> داشبورد</div>
-    <div class="nav-item" data-page="story"><i class="fas fa-images"></i> استودیو استوری</div>
-    <div class="nav-item" data-page="reels"><i class="fas fa-film"></i> سناریو ریلز</div>
-    <div class="nav-item" data-page="direct"><i class="fas fa-comments"></i> دستیار دایرکت<span class="badge">NEW</span></div>
+    <div class="nav-title">اتوماتیک</div>
+    <div class="nav-item active" data-page="auto"><i class="fas fa-robot"></i> تولید خودکار روزانه<span class="badge">AI</span></div>
+    <div class="nav-item" data-page="profile"><i class="fas fa-user-circle"></i> پروفایل پیج</div>
   </div>
   <div class="nav-section">
     <div class="nav-title">ابزارها</div>
-    <div class="nav-item" data-page="crm"><i class="fas fa-users"></i> CRM</div>
-    <div class="nav-item" data-page="calendar"><i class="fas fa-calendar"></i> تقویم</div>
-    <div class="nav-item" data-page="hooks"><i class="fas fa-bolt"></i> قلاب</div>
+    <div class="nav-item" data-page="story"><i class="fas fa-images"></i> استودیو استوری</div>
+    <div class="nav-item" data-page="reels"><i class="fas fa-film"></i> سناریو ریلز</div>
+    <div class="nav-item" data-page="direct"><i class="fas fa-comments"></i> دستیار دایرکت<span class="badge">NEW</span></div>
     <div class="nav-item" data-page="seo"><i class="fas fa-search"></i> سئو</div>
     <div class="nav-item" data-page="settings"><i class="fas fa-cog"></i> تنظیمات</div>
   </div>
   <div class="user-card">
     <div class="user-avatar">ع</div>
-    <div class="user-info"><h4>ERFAN</h4><p>فعال</p></div>
+    <div class="user-info"><h4>ERFAN HAJIABADI</h4><p id="userPlan">طرح اتوماتیک</p></div>
   </div>
 </aside>
 
 <main class="main">
   <div class="topbar">
-    <div class="page-title"><h2 id="pageTitle">داشبورد</h2><p id="pageDesc">نمای کلی</p></div>
+    <div class="page-title"><h2 id="pageTitle">تولید خودکار روزانه</h2><p id="pageDesc">ربات هر روز خودش استوری می‌سازد</p></div>
     <div class="topbar-actions">
-      <div class="status-pill" id="statusPill"><span class="status-dot"></span><span id="apiStatus">نیاز به API</span></div>
+      <div class="status-pill warning" id="statusPill"><span class="status-dot"></span><span id="apiStatus">نیاز به API</span></div>
       <button class="icon-btn" onclick="showPage('settings')"><i class="fas fa-cog"></i></button>
+      <button class="icon-btn" onclick="location.reload()"><i class="fas fa-sync"></i></button>
     </div>
   </div>
 
-  <div class="page active" id="page-dashboard">
-    <div class="kpi-grid">
-      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon"><i class="fas fa-users"></i></div></div><div class="kpi-value">۱۲,۴۸۰</div><div class="kpi-label">فالوور</div></div>
-      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon" style="background:var(--grad2)"><i class="fas fa-heart"></i></div></div><div class="kpi-value">۴.۲٪</div><div class="kpi-label">تعامل</div></div>
-      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)"><i class="fas fa-eye"></i></div></div><div class="kpi-value">۸۴K</div><div class="kpi-label">دسترسی</div></div>
-      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon" style="background:linear-gradient(135deg,#10b981,#06b6d4)"><i class="fas fa-dollar"></i></div></div><div class="kpi-value">۲</div><div class="kpi-label">لید</div></div>
-    </div>
+  <div class="security-banner" id="securityBanner" style="display:none">
+    <i class="fas fa-shield-alt"></i>
+    <div><strong>امن:</strong> کلید API فقط در مرورگر شما ذخیره می‌شود.</div>
+  </div>
+
+  <!-- صفحه تولید خودکار روزانه -->
+  <div class="page active" id="page-auto">
     <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-bolt"></i></div><div><h3>شروع سریع</h3></div></div>
-      <p style="color:var(--text2);font-size:13px">برای شروع، به بخش تنظیمات بروید و کلید API را وارد کنید.</p>
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-robot"></i></div>
+          <div>
+            <h3>برنامه هفتگی خودکار <span class="auto-indicator">اتوماتیک</span></h3>
+            <p>ربات بر اساس روز هفته، استوری مناسب می‌سازد</p>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg" onclick="generateWeekAuto()" id="weekBtn"><i class="fas fa-magic"></i> تولید برنامه هفته</button>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">موضوع پیج شما (برای تولید هوشمند)</label>
+        <input type="text" class="form-input" id="pageTopic" placeholder="مثلاً: آموزش اینستاگرام، فروش آنلاین، لایف استایل">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">لحن برند</label>
+        <select class="form-select" id="brandTone">
+          <option value="حرفه‌ای و آموزشی">حرفه‌ای و آموزشی</option>
+          <option value="دوستانه و صمیمی">دوستانه و صمیمی</option>
+          <option value="انگیزشی و پرانرژی">انگیزشی و پرانرژی</option>
+          <option value="جدی و تخصصی">جدی و تخصصی</option>
+        </select>
+      </div>
+
+      <div class="day-schedule" id="daySchedule">
+        <div class="day-card" data-day="0">
+          <div class="day-name">شنبه</div>
+          <div class="day-topic">باور غلط</div>
+          <div class="day-status pending">در انتظار</div>
+        </div>
+        <div class="day-card" data-day="1">
+          <div class="day-name">یکشنبه</div>
+          <div class="day-topic">قلاب ۳ ثانیه</div>
+          <div class="day-status pending">در انتظار</div>
+        </div>
+        <div class="day-card" data-day="2">
+          <div class="day-name">دوشنبه</div>
+          <div class="day-topic">جعبه سوال</div>
+          <div class="day-status pending">در انتظار</div>
+        </div>
+        <div class="day-card" data-day="3">
+          <div class="day-name">سه‌شنبه</div>
+          <div class="day-topic">سند اکسپلور</div>
+          <div class="day-status pending">در انتظار</div>
+        </div>
+        <div class="day-card" data-day="4">
+          <div class="day-name">چهارشنبه</div>
+          <div class="day-topic">اصلاح بایو</div>
+          <div class="day-status pending">در انتظار</div>
+        </div>
+        <div class="day-card" data-day="5">
+          <div class="day-name">پنجشنبه</div>
+          <div class="day-topic">رزرو VIP</div>
+          <div class="day-status pending">در انتظار</div>
+        </div>
+        <div class="day-card" data-day="6">
+          <div class="day-name">جمعه</div>
+          <div class="day-topic">ذهنیت تولید</div>
+          <div class="day-status pending">در انتظار</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-calendar-day"></i></div>
+          <div>
+            <h3>استوری امروز <span class="auto-indicator">اتوماتیک</span></h3>
+            <p id="todayInfo">ربات در حال بررسی...</p>
+          </div>
+        </div>
+        <button class="btn btn-success btn-lg" onclick="generateTodayStory()" id="todayBtn"><i class="fas fa-bolt"></i> ساخت استوری امروز</button>
+      </div>
+      <div class="slides-grid" id="todaySlides" style="display:none"></div>
+      <div class="output-box empty" id="todayOutput">
+        <span><i class="fas fa-info-circle"></i> دکمه را بزنید تا استوری امروز ساخته شود</span>
+      </div>
     </div>
   </div>
 
+  <!-- صفحه پروفایل پیج -->
+  <div class="page" id="page-profile">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-user-circle"></i></div>
+          <div><h3>پروفایل پیج شما</h3><p>این اطلاعات برای تولید هوشمند استفاده می‌شود</p></div>
+        </div>
+        <button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> ذخیره</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">نام پیج</label>
+        <input type="text" class="form-input" id="profileName" placeholder="مثلاً: erfanhajiabadi">
+      </div>
+      <div class="form-group">
+        <label class="form-label">حوزه فعالیت</label>
+        <input type="text" class="form-input" id="profileNiche" placeholder="مثلاً: آموزش دیجیتال مارکتینگ">
+      </div>
+      <div class="form-group">
+        <label class="form-label">توضیح بایو</label>
+        <textarea class="form-textarea" id="profileBio" placeholder="توضیح کوتاه درباره پیج شما"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">تعداد فالوور</label>
+          <input type="text" class="form-input" id="profileFollowers" placeholder="مثلاً: 12480">
+        </div>
+        <div class="form-group">
+          <label class="form-label">هدف اصلی</label>
+          <select class="form-select" id="profileGoal">
+            <option>فروش محصول/خدمات</option>
+            <option>جذب فالوور</option>
+            <option>برندسازی شخصی</option>
+            <option>آموزش و آگاهی</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- صفحه استودیو استوری -->
   <div class="page" id="page-story">
     <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-images"></i></div><div><h3>استودیو استوری</h3></div></div>
-      <div class="form-group"><label class="form-label">موضوع</label><input type="text" class="form-input" id="storyTopic" placeholder="موضوع استوری"></div>
-      <button class="btn btn-primary btn-block" onclick="generateStory()" id="storyBtn"><i class="fas fa-magic"></i> تولید</button>
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-images"></i></div>
+          <div><h3>استودیو استوری</h3><p>تولید دستی استوری</p></div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">موضوع استوری</label><input type="text" class="form-input" id="storyTopic" placeholder="مثلاً: اشتباهات رایج در الگوریتم"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">روز هفته</label>
+          <select class="form-select" id="storyDay">
+            <option value="شنبه · باور غلط">شنبه · باور غلط</option>
+            <option value="یکشنبه · قلاب ۳ ثانیه">یکشنبه · قلاب ۳ ثانیه</option>
+            <option value="دوشنبه · جعبه سوال">دوشنبه · جعبه سوال</option>
+            <option value="سه‌شنبه · سند اکسپلور">سه‌شنبه · سند اکسپلور</option>
+            <option value="چهارشنبه · اصلاح بایو">چهارشنبه · اصلاح بایو</option>
+            <option value="پنجشنبه · رزرو VIP">پنجشنبه · رزرو VIP</option>
+            <option value="جمعه · ذهنیت تولید">جمعه · ذهنیت تولید</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">لحن برند</label>
+          <select class="form-select" id="storyTone">
+            <option>حرفه‌ای و آموزشی</option>
+            <option>دوستانه و صمیمی</option>
+            <option>انگیزشی و پرانرژی</option>
+            <option>جدی و تخصصی</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="generateStory()" id="storyBtn"><i class="fas fa-magic"></i> تولید ۴ اسلاید</button>
       <div class="slides-grid" id="slidesGrid" style="display:none"></div>
-      <div class="output-box empty" id="storyOutput">موضوع را وارد کنید</div>
+      <div class="output-box empty" id="storyOutput"><span><i class="fas fa-info-circle"></i> موضوع را وارد کنید</span></div>
     </div>
   </div>
 
+  <!-- صفحه ریلز -->
   <div class="page" id="page-reels">
     <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-film"></i></div><div><h3>سناریو ریلز</h3></div></div>
-      <div class="form-group"><label class="form-label">ایده</label><textarea class="form-textarea" id="reelsIdea" placeholder="ایده ریلز"></textarea></div>
-      <button class="btn btn-primary btn-block" onclick="generateReels()" id="reelsBtn"><i class="fas fa-magic"></i> تولید</button>
-      <div class="output-box empty" id="reelsOutput">ایده را بنویسید</div>
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-film"></i></div>
+          <div><h3>سناریو ریلز</h3><p>قلاب، بدنه، CTA و کپشن</p></div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">ایده ریلز</label><textarea class="form-textarea" id="reelsIdea" placeholder="مثلاً: ۳ اشتباهی که باعث افت ویو می‌شود"></textarea></div>
+      <button class="btn btn-primary btn-block" onclick="generateReels()" id="reelsBtn"><i class="fas fa-magic"></i> تولید سناریو</button>
+      <div class="output-box empty" id="reelsOutput"><span><i class="fas fa-info-circle"></i> ایده را بنویسید</span></div>
     </div>
   </div>
 
+  <!-- صفحه دایرکت -->
   <div class="page" id="page-direct">
     <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-comments"></i></div><div><h3>دستیار دایرکت</h3></div></div>
-      <div class="form-group"><label class="form-label">نام مشتری</label><input type="text" class="form-input" id="directName"></div>
-      <div class="form-group"><label class="form-label">مشکل</label><textarea class="form-textarea" id="directProblem"></textarea></div>
-      <button class="btn btn-primary btn-block" onclick="generateDirect()" id="directBtn"><i class="fas fa-magic"></i> تولید</button>
-      <div class="output-box empty" id="directOutput">اطلاعات را وارد کنید</div>
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-comments"></i></div>
+          <div><h3>دستیار دایرکت</h3><p>پیام + ویس ۵ ثانیه</p></div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">نام مشتری</label><input type="text" class="form-input" id="directName" placeholder="مثلاً: علی محمدی"></div>
+      <div class="form-group"><label class="form-label">مشکل مشتری</label><textarea class="form-textarea" id="directProblem" placeholder="مثلاً: افت ویو"></textarea></div>
+      <button class="btn btn-primary btn-block" onclick="generateDirect()" id="directBtn"><i class="fas fa-magic"></i> تولید سناریو</button>
+      <div class="output-box empty" id="directOutput"><span><i class="fas fa-info-circle"></i> اطلاعات را وارد کنید</span></div>
     </div>
   </div>
 
-  <div class="page" id="page-crm">
-    <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-users"></i></div><div><h3>CRM</h3></div></div>
-      <div id="crmList"><p style="color:var(--text3);text-align:center;padding:40px">مشتری‌ای نیست</p></div>
-    </div>
-  </div>
-
-  <div class="page" id="page-calendar">
-    <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-calendar"></i></div><div><h3>تقویم</h3></div></div>
-      <div id="calendarGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px"></div>
-    </div>
-  </div>
-
-  <div class="page" id="page-hooks">
-    <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-bolt"></i></div><div><h3>قلاب‌ها</h3></div></div>
-      <div id="hookGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px"></div>
-    </div>
-  </div>
-
+  <!-- صفحه سئو -->
   <div class="page" id="page-seo">
     <div class="card">
-      <div class="card-header"><div class="card-title-icon"><i class="fas fa-search"></i></div><div><h3>سئو</h3></div></div>
-      <div class="form-group"><label class="form-label">موضوع</label><input type="text" class="form-input" id="seoTopic"></div>
-      <button class="btn btn-primary btn-block" onclick="generateSEO()" id="seoBtn"><i class="fas fa-magic"></i> تولید</button>
-      <div class="output-box empty" id="seoOutput">موضوع را وارد کنید</div>
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-search"></i></div>
+          <div><h3>سئو اینستاگرام</h3><p>هشتگ و کپشن SEO</p></div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">موضوع پست</label><input type="text" class="form-input" id="seoTopic" placeholder="مثلاً: آموزش رشد پیج"></div>
+      <button class="btn btn-primary btn-block" onclick="generateSEO()" id="seoBtn"><i class="fas fa-magic"></i> تولید پکیج سئو</button>
+      <div class="output-box empty" id="seoOutput"><span><i class="fas fa-info-circle"></i> موضوع را وارد کنید</span></div>
     </div>
   </div>
 
+  <!-- صفحه تنظیمات -->
   <div class="page" id="page-settings">
     <div class="card">
       <div class="card-header">
-        <div class="card-title-icon"><i class="fas fa-key"></i></div>
-        <div><h3>تنظیم کلید API</h3><p>Google Gemini</p></div>
+        <div class="card-title">
+          <div class="card-title-icon"><i class="fas fa-key"></i></div>
+          <div><h3>تنظیم کلید API</h3><p>Google Gemini (مدل واقعی)</p></div>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label">کلید API</label>
         <input type="password" class="form-input" id="apiKey" placeholder="کلید Gemini خود را وارد کنید">
       </div>
       <div class="form-group">
-        <label class="form-label">مدل</label>
+        <label class="form-label">مدل (فقط مدل‌های واقعی)</label>
         <select class="form-select" id="modelSelect">
-          <option value="gemini-3.8-flash">Gemini 3.8 Flash (پیشنهادی)</option>
-          <option value="gemini-3.8-pro">Gemini 3.8 Pro (حرفه‌ای)</option>
+          <option value="gemini-2.5-flash">✨ Gemini 2.5 Flash (پیشنهادی - کار می‌کند)</option>
+          <option value="gemini-2.5-pro">🚀 Gemini 2.5 Pro (حرفه‌ای)</option>
+          <option value="gemini-2.0-flash">⚡ Gemini 2.0 Flash (سریع)</option>
+          <option value="gemini-2.0-flash-lite">💡 Gemini 2.0 Flash Lite (سبک)</option>
         </select>
       </div>
-      <div style="display:flex;gap:10px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="testAPI()" id="testBtn"><i class="fas fa-plug"></i> تست اتصال</button>
         <button class="btn btn-secondary" onclick="saveAPI()"><i class="fas fa-save"></i> ذخیره</button>
       </div>
       <div id="apiErrorBox" style="display:none"></div>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title-icon"><i class="fas fa-database"></i></div>
-        <div><h3>مدیریت داده‌ها</h3></div>
-      </div>
-      <div style="display:flex;gap:10px">
-        <button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> خروجی</button>
-        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> ورودی</button>
-        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
-      </div>
     </div>
   </div>
 
 </main>
 </div>
 
-<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">موفق</span></div>
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span class="toast-msg" id="toastMsg">موفق</span></div>
 
 <script>
-const VALID_MODELS=['gemini-3.8-flash','gemini-3.8-pro'];
-const DEFAULT_MODEL='gemini-3.8-flash';
+// مدل‌های واقعی Gemini که کار می‌کنند
+const VALID_MODELS=['gemini-2.5-flash','gemini-2.5-pro','gemini-2.0-flash','gemini-2.0-flash-lite'];
+const DEFAULT_MODEL='gemini-2.5-flash';
+
 let savedModel=localStorage.getItem('erfan_model');
-if(!savedModel||!VALID_MODELS.includes(savedModel)){localStorage.setItem('erfan_model',DEFAULT_MODEL);savedModel=DEFAULT_MODEL}
+if(!savedModel||!VALID_MODELS.includes(savedModel)){
+  localStorage.setItem('erfan_model',DEFAULT_MODEL);
+  savedModel=DEFAULT_MODEL;
+}
 
 const state={
   apiKey:localStorage.getItem('erfan_api_key')||'',
   model:savedModel,
-  customers:[],
-  events:[],
+  profile:JSON.parse(localStorage.getItem('erfan_profile')||'{}'),
+  weekData:JSON.parse(localStorage.getItem('erfan_week')||'{}'),
   apiConnected:false
 };
 
+// ناوبری
 document.querySelectorAll('.nav-item').forEach(item=>{
   item.addEventListener('click',()=>showPage(item.dataset.page));
 });
@@ -271,8 +440,21 @@ function showPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const pageEl=document.getElementById(`page-${page}`);
   if(pageEl)pageEl.classList.add('active');
-  const titles={dashboard:['داشبورد','نمای کلی'],story:['استودیو استوری','تولید استوری'],reels:['سناریو ریلز','قلاب و کپشن'],direct:['دستیار دایرکت','سناریوی فروش'],crm:['CRM','مشتریان'],calendar:['تقویم','برنامه‌ریزی'],hooks:['قلاب','قلاب‌های تست‌شده'],seo:['سئو','هشتگ و کپشن'],settings:['تنظیمات','مدیریت سیستم']};
-  if(titles[page]){document.getElementById('pageTitle').textContent=titles[page][0];document.getElementById('pageDesc').textContent=titles[page][1]}
+  const titles={
+    auto:['تولید خودکار روزانه','ربات هر روز خودش استوری می‌سازد'],
+    profile:['پروفایل پیج','اطلاعات پیج شما'],
+    story:['استودیو استوری','تولید دستی استوری'],
+    reels:['سناریو ریلز','قلاب و کپشن'],
+    direct:['دستیار دایرکت','سناریوی فروش'],
+    seo:['سئو اینستاگرام','هشتگ و کپشن'],
+    settings:['تنظیمات','مدیریت API']
+  };
+  if(titles[page]){
+    document.getElementById('pageTitle').textContent=titles[page][0];
+    document.getElementById('pageDesc').textContent=titles[page][1];
+  }
+  if(page==='auto')loadAutoPage();
+  if(page==='profile')loadProfile();
 }
 
 function showToast(msg,type='success'){
@@ -286,17 +468,211 @@ function showToast(msg,type='success'){
 }
 
 async function callGemini(prompt){
-  if(!state.apiKey){showToast('کلید API را وارد کنید','error');showPage('settings');throw new Error('No API key')}
+  if(!state.apiKey){
+    showToast('لطفاً کلید API را در تنظیمات وارد کنید','error');
+    showPage('settings');
+    throw new Error('No API key');
+  }
   const url=`https://generativelanguage.googleapis.com/v1beta/models/${state.model}:generateContent?key=${state.apiKey}`;
-  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.8,maxOutputTokens:2048}})});
-  if(!res.ok){const errorText=await res.text();throw new Error(`API Error: ${res.status}`)}
+  const res=await fetch(url,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      contents:[{parts:[{text:prompt}]}],
+      generationConfig:{temperature:0.8,maxOutputTokens:2048,topP:0.95}
+    })
+  });
+  if(!res.ok){
+    const errorText=await res.text();
+    throw new Error(`API Error: ${res.status} - ${errorText.substring(0,150)}`);
+  }
   const data=await res.json();
   return data.candidates?.[0]?.content?.parts?.[0]?.text||'';
 }
 
+// بارگذاری صفحه خودکار
+function loadAutoPage(){
+  const topic=state.profile.niche||'';
+  const tone=state.profile.tone||'حرفه‌ای و آموزشی';
+  document.getElementById('pageTopic').value=topic;
+  document.getElementById('brandTone').value=tone;
+  
+  // نمایش روز امروز
+  const today=new Date().getDay();
+  const persianDays=['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
+  const todayName=persianDays[today];
+  const todayCard=document.querySelector(`.day-card[data-day="${(today+1)%7}"]`);
+  if(todayCard)todayCard.classList.add('today');
+  
+  document.getElementById('todayInfo').textContent=`امروز ${todayName} است - ربات آماده ساخت استوری`;
+  
+  // بارگذاری وضعیت هفته
+  loadWeekStatus();
+}
+
+function loadWeekStatus(){
+  document.querySelectorAll('.day-card').forEach(card=>{
+    const day=card.dataset.day;
+    if(state.weekData[day]&&state.weekData[day].generated){
+      card.classList.add('generated');
+      const status=card.querySelector('.day-status');
+      status.className='day-status done';
+      status.textContent='✓ ساخته شد';
+    }
+  });
+}
+
+// تولید برنامه هفته
+async function generateWeekAuto(){
+  const topic=document.getElementById('pageTopic').value.trim();
+  const tone=document.getElementById('brandTone').value;
+  if(!topic){showToast('موضوع پیج را وارد کنید','error');return}
+  
+  const btn=document.getElementById('weekBtn');
+  const originalHTML=btn.innerHTML;
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span> ربات در حال برنامه‌ریزی...';
+  
+  try{
+    const prompt=`تو یک متخصص اینستاگرام فارسی هستی. برای پیج با موضوع "${topic}" و لحن "${tone}"، یک برنامه استوری ۷ روزه بساز.
+
+ساختار هر روز:
+- شنبه: باور غلط (یک باور اشتباه رایج را رد کن)
+- یکشنبه: قلاب ۳ ثانیه (قلاب قوی برای ریلز)
+- دوشنبه: جعبه سوال (سوال تعاملی از مخاطب)
+- سه‌شنبه: سند اکسپلور (آمار یا مثال واقعی)
+- چهارشنبه: اصلاح بایو (نکته درباره بهینه‌سازی پروفایل)
+- پنجشنبه: رزرو VIP (دعوت به اقدام فروش)
+- جمعه: ذهنیت تولید (انگیزشی برای تولیدکنندگان)
+
+برای هر روز ۴ اسلاید استوری با این ساختار:
+1. قلاب (Hook)
+2. ارزش (Value)
+3. سند (Proof)
+4. اکشن (CTA)
+
+خروجی JSON:
+{
+  "week": [
+    {"day":"شنبه","topic":"باور غلط","slides":[{"num":1,"type":"قلاب","title":"...","body":"..."},{"num":2,"type":"ارزش","title":"...","body":"..."},{"num":3,"type":"سند","title":"...","body":"..."},{"num":4,"type":"اکشن","title":"...","body":"..."}]},
+    ...
+  ]
+}
+
+فقط JSON خالص برگردان.`;
+
+    const result=await callGemini(prompt);
+    const jsonMatch=result.match(/\{[\s\S]*\}/);
+    if(!jsonMatch)throw new Error('پاسخ نامعتبر');
+    const data=JSON.parse(jsonMatch[0]);
+    
+    // ذخیره برنامه هفته
+    state.weekData={};
+    data.week.forEach((dayData,i)=>{
+      state.weekData[i]={
+        generated:true,
+        topic:dayData.topic,
+        slides:dayData.slides,
+        date:new Date().toISOString()
+      };
+    });
+    localStorage.setItem('erfan_week',JSON.stringify(state.weekData));
+    
+    loadWeekStatus();
+    showToast('برنامه هفتگی ساخته شد ✓');
+  }catch(e){
+    showToast('خطا: '+e.message,'error');
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML=originalHTML;
+  }
+}
+
+// تولید استوری امروز
+async function generateTodayStory(){
+  const topic=document.getElementById('pageTopic').value.trim()||'آموزش اینستاگرام';
+  const tone=document.getElementById('brandTone').value;
+  
+  const today=new Date().getDay();
+  const dayIndex=(today+1)%7;
+  const dayNames=['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه'];
+  const dayTopics=['باور غلط','قلاب ۳ ثانیه','جعبه سوال','سند اکسپلور','اصلاح بایو','رزرو VIP','ذهنیت تولید'];
+  
+  const todayName=dayNames[dayIndex];
+  const todayTopic=dayTopics[dayIndex];
+  
+  const btn=document.getElementById('todayBtn');
+  const output=document.getElementById('todayOutput');
+  const originalHTML=btn.innerHTML;
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span> ربات در حال ساخت...';
+  output.className='output-box';
+  output.innerHTML='<div class="loading"><span class="spinner"></span> در حال تولید استوری امروز...</div>';
+  
+  try{
+    const prompt=`تو یک متخصص اینستاگرام فارسی هستی. امروز ${todayName} است و موضوع استوری "${todayTopic}" است.
+
+برای پیج با موضوع "${topic}" و لحن "${tone}"،  اسلاید استوری مهندسی‌شده تولید کن.
+
+ساختار:
+- اسلاید ۱: قلاب قوی که در ۳ ثانیه مخاطب را میخکوب کند
+- اسلاید ۲: ارزش آموزشی یا نکته کلیدی
+- اسلاید ۳: سند، مثال واقعی، یا آمار
+- اسلاید ۴: CTA قوی (دعوت به اقدام)
+
+خروجی JSON:
+{"slides":[{"num":1,"type":"قلاب","title":"...","body":"..."},{"num":2,"type":"ارزش","title":"...","body":"..."},{"num":3,"type":"سند","title":"...","body":"..."},{"num":4,"type":"اکشن","title":"...","body":"..."}]}
+
+فقط JSON خالص برگردان.`;
+
+    const result=await callGemini(prompt);
+    const jsonMatch=result.match(/\{[\s\S]*\}/);
+    if(!jsonMatch)throw new Error('پاسخ نامعتبر');
+    const data=JSON.parse(jsonMatch[0]);
+    
+    // نمایش اسلایدها
+    const grid=document.getElementById('todaySlides');
+    grid.style.display='grid';
+    grid.innerHTML=data.slides.map((s,i)=>`
+      <div class="slide-card ${i===0?'active':''}" onclick="this.parentElement.querySelectorAll('.slide-card').forEach(c=>c.classList.remove('active'));this.classList.add('active')">
+        <div class="slide-num">${s.num}</div>
+        <div class="slide-type">${s.type}</div>
+        <div class="slide-title">${s.title}</div>
+        <div class="slide-body">${s.body}</div>
+      </div>
+    `).join('');
+    
+    output.className='output-box';
+    output.innerHTML=`<button class="copy-btn" onclick="copyTodayContent()"><i class="fas fa-copy"></i> کپی</button><pre>${data.slides.map(s=>`【 اسلاید ${s.num} - ${s.type} 】\n${s.title}\n\n${s.body}\n`).join('\n')}</pre>`;
+    
+    // علامت‌گذاری روز امروز
+    state.weekData[dayIndex]={generated:true,topic:todayTopic,slides:data.slides,date:new Date().toISOString()};
+    localStorage.setItem('erfan_week',JSON.stringify(state.weekData));
+    loadWeekStatus();
+    
+    showToast(`استوری ${todayName} ساخته شد ✓`);
+  }catch(e){
+    output.className='output-box';
+    output.innerHTML=`<div class="error-box"><i class="fas fa-exclamation-triangle"></i> خطا: ${e.message}</div>`;
+    showToast('خطا: '+e.message,'error');
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML=originalHTML;
+  }
+}
+
+function copyTodayContent(){
+  const text=document.querySelector('#todayOutput pre')?.textContent;
+  if(text){navigator.clipboard.writeText(text);showToast('کپی شد')}
+}
+
+// تولید استوری دستی
 async function generateStory(){
   const topic=document.getElementById('storyTopic').value.trim();
   if(!topic){showToast('موضوع را وارد کنید','error');return}
+  const day=document.getElementById('storyDay').value;
+  const tone=document.getElementById('storyTone').value;
+  
   const btn=document.getElementById('storyBtn');
   const output=document.getElementById('storyOutput');
   const originalHTML=btn.innerHTML;
@@ -304,8 +680,14 @@ async function generateStory(){
   btn.innerHTML='<span class="spinner"></span> در حال تولید...';
   output.className='output-box';
   output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';
+  
   try{
-    const prompt=`برای موضوع "${topic}"،  اسلاید استوری تولید کن.\n\nخروجی JSON:\n{"slides":[{"num":1,"type":"قلاب","title":"...","body":"..."},{"num":2,"type":"ارزش","title":"...","body":"..."},{"num":3,"type":"سند","title":"...","body":"..."},{"num":4,"type":"اکشن","title":"...","body":"..."}]}\n\nفقط JSON.`;
+    const prompt=`برای موضوع "${topic}" با لحن "${tone}" در روز ${day}، ۴ اسلاید استوری تولید کن.
+
+خروجی JSON:
+{"slides":[{"num":1,"type":"قلاب","title":"...","body":"..."},{"num":2,"type":"ارزش","title":"...","body":"..."},{"num":3,"type":"سند","title":"...","body":"..."},{"num":4,"type":"اکشن","title":"...","body":"..."}]}
+
+فقط JSON.`;
     const result=await callGemini(prompt);
     const jsonMatch=result.match(/\{[\s\S]*\}/);
     if(!jsonMatch)throw new Error('پاسخ نامعتبر');
@@ -313,7 +695,7 @@ async function generateStory(){
     const grid=document.getElementById('slidesGrid');
     grid.style.display='grid';
     grid.innerHTML=data.slides.map((s,i)=>`<div class="slide-card ${i===0?'active':''}"><div class="slide-num">${s.num}</div><div class="slide-type">${s.type}</div><div class="slide-title">${s.title}</div><div class="slide-body">${s.body}</div></div>`).join('');
-    output.innerHTML=`<pre>${data.slides.map(s=>`اسلاید ${s.num}: ${s.title}\n${s.body}`).join('\n\n')}</pre>`;
+    output.innerHTML=`<button class="copy-btn" onclick="copyOutput('storyOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${data.slides.map(s=>`اسلاید ${s.num}: ${s.title}\n${s.body}`).join('\n\n')}</pre>`;
     showToast('استوری تولید شد ✓');
   }catch(e){
     output.className='output-box';
@@ -336,18 +718,14 @@ async function generateReels(){
   output.className='output-box';
   output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';
   try{
-    const prompt=`برای ایده "${idea}"، سناریوی ریلز بنویس:\n۱. قلاب\n۲. بدنه\n۳. CTA\n۴. کپشن با ۱۰ هشتگ`;
-    const result=await callGemini(prompt);
-    output.innerHTML=`<pre>${result}</pre>`;
+    const result=await callGemini(`برای ایده "${idea}"، سناریوی ریلز بنویس: ۱. قلاب ۲. بدنه ۳. CTA ۴. کپشن با ۱ هشتگ`);
+    output.innerHTML=`<button class="copy-btn" onclick="copyOutput('reelsOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;
     showToast('سناریو تولید شد ✓');
   }catch(e){
     output.className='output-box';
     output.innerHTML=`<div class="error-box">خطا: ${e.message}</div>`;
     showToast('خطا: '+e.message,'error');
-  }finally{
-    btn.disabled=false;
-    btn.innerHTML=originalHTML;
-  }
+  }finally{btn.disabled=false;btn.innerHTML=originalHTML}
 }
 
 async function generateDirect(){
@@ -362,18 +740,14 @@ async function generateDirect(){
   output.className='output-box';
   output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';
   try{
-    const prompt=`برای مشتری "${name}" با مشکل "${problem}":\n. پیام دایرکت\n۲. سناریوی ویس ۴۵ ثانیه`;
-    const result=await callGemini(prompt);
-    output.innerHTML=`<pre>${result}</pre>`;
+    const result=await callGemini(`برای مشتری "${name}" با مشکل "${problem}": ۱. پیام دایرکت ۲. سناریوی ویس ۴۵ ثانیه`);
+    output.innerHTML=`<button class="copy-btn" onclick="copyOutput('directOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;
     showToast('سناریو تولید شد ✓');
   }catch(e){
     output.className='output-box';
     output.innerHTML=`<div class="error-box">خطا: ${e.message}</div>`;
     showToast('خطا: '+e.message,'error');
-  }finally{
-    btn.disabled=false;
-    btn.innerHTML=originalHTML;
-  }
+  }finally{btn.disabled=false;btn.innerHTML=originalHTML}
 }
 
 async function generateSEO(){
@@ -387,20 +761,44 @@ async function generateSEO(){
   output.className='output-box';
   output.innerHTML='<div class="loading"><span class="spinner"></span> در حال پردازش...</div>';
   try{
-    const prompt=`برای موضوع "${topic}"، پکیج سئو:\n۱. کپشن\n۲. ۲۰ هشتگ\n۳. کلمات کلیدی`;
-    const result=await callGemini(prompt);
-    output.innerHTML=`<pre>${result}</pre>`;
+    const result=await callGemini(`برای موضوع "${topic}"، پکیج سئو: ۱. کپشن ۲. ۲۰ هشتگ ۳. کلمات کلیدی`);
+    output.innerHTML=`<button class="copy-btn" onclick="copyOutput('seoOutput')"><i class="fas fa-copy"></i> کپی</button><pre>${result}</pre>`;
     showToast('سئو تولید شد ✓');
   }catch(e){
     output.className='output-box';
     output.innerHTML=`<div class="error-box">خطا: ${e.message}</div>`;
     showToast('خطا: '+e.message,'error');
-  }finally{
-    btn.disabled=false;
-    btn.innerHTML=originalHTML;
-  }
+  }finally{btn.disabled=false;btn.innerHTML=originalHTML}
 }
 
+function copyOutput(id){
+  const text=document.querySelector(`#${id} pre`)?.textContent;
+  if(text){navigator.clipboard.writeText(text);showToast('کپی شد')}
+}
+
+// پروفایل پیج
+function loadProfile(){
+  document.getElementById('profileName').value=state.profile.name||'';
+  document.getElementById('profileNiche').value=state.profile.niche||'';
+  document.getElementById('profileBio').value=state.profile.bio||'';
+  document.getElementById('profileFollowers').value=state.profile.followers||'';
+  document.getElementById('profileGoal').value=state.profile.goal||'فروش محصول/خدمات';
+}
+
+function saveProfile(){
+  state.profile={
+    name:document.getElementById('profileName').value,
+    niche:document.getElementById('profileNiche').value,
+    bio:document.getElementById('profileBio').value,
+    followers:document.getElementById('profileFollowers').value,
+    goal:document.getElementById('profileGoal').value,
+    tone:document.getElementById('brandTone')?.value||'حرفه‌ای و آموزشی'
+  };
+  localStorage.setItem('erfan_profile',JSON.stringify(state.profile));
+  showToast('پروفایل ذخیره شد ✓');
+}
+
+// تست API
 async function testAPI(){
   const key=document.getElementById('apiKey').value.trim();
   if(!key){showToast('کلید را وارد کنید','error');return}
@@ -417,6 +815,7 @@ async function testAPI(){
     state.apiConnected=true;
     document.getElementById('statusPill').className='status-pill connected';
     document.getElementById('apiStatus').textContent='متصل به '+state.model;
+    document.getElementById('securityBanner').style.display='flex';
     showToast('اتصال موفق ✓');
   }catch(e){
     state.apiConnected=false;
@@ -436,35 +835,10 @@ function saveAPI(){
   state.model=document.getElementById('modelSelect').value;
   localStorage.setItem('erfan_api_key',state.apiKey);
   localStorage.setItem('erfan_model',state.model);
-  showToast('ذخیره شد ✓');
+  showToast('تنظیمات ذخیره شد ✓');
 }
 
-function exportData(){
-  const data={customers:state.customers,events:state.events,exportedAt:new Date().toISOString()};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download=`backup-${Date.now()}.json`;
-  a.click();
-  showToast('خروجی گرفته شد ✓');
-}
-
-function importData(e){
-  const file=e.target.files[0];
-  if(!file)return;
-  const reader=new FileReader();
-  reader.onload=(ev)=>{
-    try{
-      const data=JSON.parse(ev.target.result);
-      if(data.customers)state.customers=data.customers;
-      if(data.events)state.events=data.events;
-      showToast('داده‌ها بازیابی شد ✓');
-    }catch(err){showToast('فایل نامعتبر','error')}
-  };
-  reader.readAsText(file);
-}
-
+// راه‌اندازی
 window.addEventListener('DOMContentLoaded',()=>{
   if(state.apiKey)document.getElementById('apiKey').value=state.apiKey;
   const modelSelect=document.getElementById('modelSelect');
@@ -472,9 +846,11 @@ window.addEventListener('DOMContentLoaded',()=>{
     if(option.value===state.model){option.selected=true;break}
   }
   if(state.apiKey){
-    document.getElementById('statusPill').className='status-pill connected';
-    document.getElementById('apiStatus').textContent='متصل';
+    document.getElementById('statusPill').className='status-pill warning';
+    document.getElementById('apiStatus').textContent='کلید ذخیره شده';
+    document.getElementById('securityBanner').style.display='flex';
   }
+  loadAutoPage();
 });
 </script>
 </body>
